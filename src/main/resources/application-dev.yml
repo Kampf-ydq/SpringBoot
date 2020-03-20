@@ -12,4 +12,15 @@ mybatis:
   mapper-locations: classpath:/mybatis/*Mapper.xml #Mapper.xml location
   type-aliases-package: com.ditecting.honeyeye.domain #mybatis entity scan packages
 
+capture:
+  Captureholder:
+    count: -1
+    readTimeout: 60
+    snaplen: 65536
+    filter: dst 192.168.31.137 or src 192.168.31.137
+  PcapNetworkInterface:
+    enableAutoFind: true
+  ConvertListener:
+    convertGrain: 1
+
 

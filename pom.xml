@@ -58,8 +58,6 @@
             <scope>test</scope>
         </dependency>
 
-
-
         <dependency>
             <groupId>mysql</groupId>
             <artifactId>mysql-connector-java</artifactId>
@@ -74,9 +72,22 @@
         </dependency>
         <dependency>
             <groupId>org.pcap4j</groupId>
+            <artifactId>pcap4j-packetfactory-propertiesbased</artifactId>
+            <version>1.8.2</version>
+        </dependency>
+        <dependency>
+            <groupId>org.pcap4j</groupId>
             <artifactId>pcap4j-packetfactory-static</artifactId>
             <version>1.8.2</version>
         </dependency>
+
+
+        <dependency>
+            <groupId>net.java.dev.jna</groupId>
+            <artifactId>jna</artifactId>
+            <version>5.1.0</version>
+        </dependency>
+
     </dependencies>
 
 	<build>

@@ -11,10 +11,18 @@ import javax.annotation.PostConstruct;
 import java.io.IOException;
 import java.util.Objects;
 
+/**
+ * CaptureHolder ByteOrder is consistent with Network ByteOrder.
+ *
+ * @author CSheng
+ * @version 1.0
+ * @date 2020/3/27 16:33
+ */
 @Component
-public class Captureholder {
-    private static final Logger logger = LoggerFactory.getLogger(Captureholder.class);
+public class CaptureHolder {
+    private static final Logger logger = LoggerFactory.getLogger(CaptureHolder.class);
     private PcapNetworkInterface nif;
+    private PcapHandle handle = null;
 
     @Autowired
     private MyPcapNetworkInterface myPcapNetworkInterface;
@@ -22,28 +30,32 @@ public class Captureholder {
     @Autowired
     private PacketListener convertListener;
 
-    @Value("${capture.Captureholder.count}")
+    @Value("${capture.captureHolder.count}")
     private int count; //maximum number of captured packet, -1 means infinite
 
-    @Value("${capture.Captureholder.readTimeout}")
+    @Value("${capture.captureHolder.readTimeout}")
     private int readTimeout; //read timeout [ms]
 
-    @Value("${capture.Captureholder.snaplen}")
+    @Value("${capture.captureHolder.snaplen}")
     private int snaplen; //number of bytes captured for each packet [bytes]
 
-    @Value("${capture.Captureholder.filter}")
+    @Value("${capture.captureHolder.filter}")
     String filter; //filter condition for capture, which is consistent with filter rules in wireshark
 
-    public Captureholder(){}
+    public CaptureHolder(){}
 
     @PostConstruct
     private void init() throws IOException {
         nif = Objects.requireNonNull(myPcapNetworkInterface.getMyPcapNetworkInterface(), "NIF cannot be NULL");
     }
 
+    public PcapHandle getHandle() {
+        return handle;
+    }
+
     public void capture() throws PcapNativeException, NotOpenException{
         //instantiate a packet capturing object with length, promiscuous mode and timeout
-        final PcapHandle handle = nif.openLive(snaplen, PcapNetworkInterface.PromiscuousMode.PROMISCUOUS, readTimeout);
+        handle = nif.openLive(snaplen, PcapNetworkInterface.PromiscuousMode.PROMISCUOUS, readTimeout);
 
         //create filter which is consistent with filter rules in wireshark
         if (filter.length() != 0) {

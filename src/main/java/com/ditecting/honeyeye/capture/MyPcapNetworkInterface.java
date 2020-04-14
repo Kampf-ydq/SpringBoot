@@ -12,12 +12,17 @@ import java.io.IOException;
 import java.util.List;
 import java.util.stream.Collectors;
 
+/**
+ * @author CSheng
+ * @version 1.0
+ * @date 2020/3/27 16:33
+ */
 @Component
 public class MyPcapNetworkInterface {
     private static final Logger logger = LoggerFactory.getLogger(MyPcapNetworkInterface.class);
     private PcapNetworkInterface MY_NIF;
 
-    @Value("${capture.PcapNetworkInterface.enableAutoFind}")
+    @Value("${capture.pcapNetworkInterface.enableAutoFind}")
     private boolean enableAutoFind;  //mode of finding PcapNetworkInterface
 
     public MyPcapNetworkInterface(){}

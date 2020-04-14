@@ -6,7 +6,7 @@
  * @description : visible thread pool
  * @version : 1.0$
  */
-package com.ditecting.honeyeye.util;
+package com.ditecting.honeyeye.config;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -18,6 +18,7 @@ import java.util.concurrent.Future;
 import java.util.concurrent.ThreadPoolExecutor;
 
 public class VisibleThreadPoolTaskExecutor extends ThreadPoolTaskExecutor{
+    private static final long serialVersionUID = -7700119989964932102L;
     private static final Logger logger = LoggerFactory.getLogger(VisibleThreadPoolTaskExecutor.class);
 
     private void showThreadPoolInfo (String prefix){

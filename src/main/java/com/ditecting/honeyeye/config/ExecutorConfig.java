@@ -6,7 +6,7 @@
  * @description : converter thread pool
  * @version : 1.0$
  */
-package com.ditecting.honeyeye.util;
+package com.ditecting.honeyeye.config;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -28,10 +28,23 @@ public class ExecutorConfig {
     public Executor asyncConvertExecutor(){
         logger.info("start asyncConvertExecutor");
         ThreadPoolTaskExecutor executor = new VisibleThreadPoolTaskExecutor();
-        executor.setCorePoolSize(10);
-        executor.setMaxPoolSize(100);
-        executor.setQueueCapacity(1000);
+        executor.setCorePoolSize(5);
+        executor.setMaxPoolSize(10);
+        executor.setQueueCapacity(100);
         executor.setThreadNamePrefix("async-convert-");
+        executor.setRejectedExecutionHandler(new ThreadPoolExecutor.CallerRunsPolicy());//invoker threads will process their excessive tasks by themselves
+        executor.initialize();
+        return executor;
+    }
+
+    @Bean
+    public Executor asyncTsharkExecutor(){
+        logger.info("start asyncTsharkExecutor");
+        ThreadPoolTaskExecutor executor = new VisibleThreadPoolTaskExecutor();
+        executor.setCorePoolSize(5);
+        executor.setMaxPoolSize(10);
+        executor.setQueueCapacity(100);
+        executor.setThreadNamePrefix("async-tshark-");
         executor.setRejectedExecutionHandler(new ThreadPoolExecutor.CallerRunsPolicy());//invoker threads will process their excessive tasks by themselves
         executor.initialize();
         return executor;

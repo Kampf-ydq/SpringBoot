@@ -8,6 +8,11 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+/**
+ * @author CSheng
+ * @version 1.0
+ * @date 2020/3/27 16:33
+ */
 @Service
 public class UserInfoServiceImpl implements UserInfoService{
     @Autowired

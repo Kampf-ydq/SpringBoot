@@ -1,7 +1,6 @@
-package com.ditecting.honeyeye.load;
+package com.ditecting.honeyeye.picker.loader;
 
-import com.ditecting.honeyeye.pcap4j.extension.packet.FullPacket;
-import com.ditecting.honeyeye.pcap4j.extension.packet.JsonPacket;
+import com.ditecting.honeyeye.pcap4j.extension.utils.PacketUtil;
 import org.pcap4j.packet.Packet;
 import org.springframework.stereotype.Component;
 
@@ -22,23 +21,8 @@ public class LoadNote {
         return counter.get();
     }
 
-    public static void count(FullPacket fullPacket) {
-        count(fullPacket.getPacket());
-    }
-
     public static void count(Packet packet) {
-        Packet endPacket = null;
-        for(Packet p : packet){
-            endPacket = p;
-        }
-        String name;
-        if(endPacket instanceof JsonPacket){
-            name = endPacket.getClass().getName().replace(endPacket.getClass().getPackage().getName() + ".", "");
-            name = name.replace("JsonPacket", "");
-        }else {
-            name = endPacket.getClass().getName().replace(endPacket.getClass().getPackage().getName() + ".", "");
-            name = name.replace("Packet", "");
-        }
+        String name = PacketUtil.getTopProtocolFromPacket(packet).get("name");
 
         if(counter.get() == null){
             counter.set(new HashMap<>());
@@ -50,6 +34,19 @@ public class LoadNote {
             counter.get().put(name, 1L);
         }
     }
+
+//    public static void count(PacketSession packetSession) {
+//        if(counter.get() == null){
+//            counter.set(new HashMap<>());
+//        }
+//        String name = packetSession.getSignature();
+//        if(counter.get().containsKey(name)){
+//            counter.get().put(name, counter.get().get(name).longValue() + 1);
+//        }else {
+//            counter.get().put(name, 1L);
+//        }
+//
+//    }
 
     public static String printCounter () {
         String ls = System.lineSeparator();

@@ -12,7 +12,7 @@ class TsharkUtilTest {
     @Test
     void executeTshark() {
         byte [] rawData = {1,2,3};
-        TsharkUtils.executeTshark(rawData);
+        TsharkUtil.executeTshark(rawData);
     }
 
     @Test

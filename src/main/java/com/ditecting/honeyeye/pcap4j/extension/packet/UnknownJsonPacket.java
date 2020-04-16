@@ -32,6 +32,10 @@ public class UnknownJsonPacket extends SimpleJsonPacket {
         super(builder);
     }
 
+    public String toString (){
+        return  "\"Unknown\": " + super.getRawJsonPacket();
+    }
+
     @Override
     public Builder getBuilder() {
         return new Builder(this);

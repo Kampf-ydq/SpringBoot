@@ -1,11 +1,15 @@
-package com.ditecting.honeyeye.load;
+package com.ditecting.honeyeye.picker.loader;
 
+import com.ditecting.honeyeye.listener.ConvertingListener;
+import com.ditecting.honeyeye.listener.LoadingListener;
+import com.ditecting.honeyeye.listener.OutputingListener;
 import com.ditecting.honeyeye.pcap4j.extension.core.FullPcapHandle;
 import com.ditecting.honeyeye.pcap4j.extension.core.TsharkMappings;
 import com.ditecting.honeyeye.pcap4j.extension.packet.pool.FullPacketPool;
 import lombok.extern.slf4j.Slf4j;
 import org.pcap4j.core.*;
 import org.pcap4j.util.ByteArrays;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.io.*;
@@ -24,11 +28,49 @@ import java.util.Scanner;
 public class LoadHolder {
     private FullPcapHandle handle = null;
 
+    @Autowired
+    private LoadingListener loadingListener;
+
+    @Autowired
+    private ConvertingListener convertingListener;
+
+    @Autowired
+    private OutputingListener outputingListener;
+
     public FullPcapHandle getHandle() {
         return handle;
     }
 
-    public void load(String filePath) throws IOException {
+    public void load(String filePath){
+        /* start loading and parsing .pcap file*/
+        try {
+            generateHandle(filePath);
+            if(handle == null){
+                throw new NullPointerException("FullPcapHandle is null in LoadHolder.");
+            }
+            handle.loop(-1,  loadingListener);
+        } catch (PcapNativeException e) {
+            e.printStackTrace();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        } catch (NotOpenException e) {
+            e.printStackTrace();
+        }
+
+        /*riffle incomplete FullPacket*/
+        FullPacketPool.riffleFullPacketPool();
+        log.info(LoadNote.printCounter());
+
+        /*converting FullPacket into target types*/
+        convertingListener.gotFullPacketPool();
+
+        /*output targeted data*/
+        outputingListener.gotFullPacketPool(false, -1);
+
+        handle.close();
+    }
+
+    private void generateHandle(String filePath){
         try {
             if(filePath == null) {
                 filePath = openPcapFile();
@@ -39,7 +81,7 @@ public class LoadHolder {
             generatePcapFileHeader(filePath);
             ByteOrder byteOrder = null;
             if(FullPacketPool.pcapFileHeader.get() == null){
-                throw new NullPointerException("PcapFileHeader in ConvertListener is null");
+                throw new NullPointerException("PcapFileHeader in null");
             }else{
                 if(FullPacketPool.pcapFileHeader.get().getMagic() == 0xa1b2c3d4){
                     byteOrder = ByteOrder.BIG_ENDIAN;
@@ -51,18 +93,13 @@ public class LoadHolder {
             if(byteOrder == null){
                 throw new IOException("the file [" + filePath + "] is not a valid .pcap file.");
             }
-            LoadListener loadListener = new LoadListener();
 
             handle = new FullPcapHandle(ph.getHandle(), ph.getTimestampPrecision(), byteOrder);
-            handle.loop(-1, loadListener);
         } catch (PcapNativeException e) {
             e.printStackTrace();
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        } catch (NotOpenException e) {
+        } catch (IOException e){
             e.printStackTrace();
         }
-        FullPacketPool.riffleFullPacketPool();
     }
 
     private String openPcapFile() throws IOException {

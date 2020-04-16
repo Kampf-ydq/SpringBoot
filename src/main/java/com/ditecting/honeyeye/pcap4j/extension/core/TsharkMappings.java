@@ -1,11 +1,10 @@
 package com.ditecting.honeyeye.pcap4j.extension.core;
 
-import com.ditecting.honeyeye.capture.CaptureHolder;
-import com.ditecting.honeyeye.load.LoadHolder;
-import com.sun.jna.Structure;
+import com.ditecting.honeyeye.picker.capturer.CaptureHolder;
+import com.ditecting.honeyeye.picker.loader.LoadHolder;
 import lombok.Builder;
 import lombok.Getter;
-import org.pcap4j.core.NativeMappings;
+import lombok.extern.slf4j.Slf4j;
 import org.pcap4j.packet.namednumber.DataLinkType;
 import org.pcap4j.util.ByteArrays;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,6 +18,7 @@ import java.nio.ByteOrder;
  * @version 1.0
  * @date 2020/4/1 19:52
  */
+@Slf4j
 @Component
 public class TsharkMappings {
     public static final ByteOrder NATIVE_BYTE_ORDER = ByteOrder.nativeOrder();
@@ -51,6 +51,21 @@ public class TsharkMappings {
             }
         }
         return dlt;
+    }
+
+    public static PcapFileHeader generateDefaultPcapFileHeader () {
+        PcapFileHeader pcapFileHeader = TsharkMappings.PcapFileHeader.builder()
+                .magic(-725372255)
+                .magorVersion((short)512)
+                .minorVersion((short)1024)
+                .timezone(0)
+                .sigflags(0)
+                .snaplen(65535)
+                .linktype(16777216)
+                .build();
+//        log.info("PcapFileHeader: " + ByteArrays.toHexString(pcapFileHeader.toByteArray(), ""));
+
+        return pcapFileHeader;
     }
 
     @Getter
@@ -103,25 +118,29 @@ public class TsharkMappings {
         }
     }
 
-    @Builder
     public static class PcapDataHeader {
+        private final ByteOrder byteOrder;
         private int timeS;
         private int timeMs;
         private int caplen;
         private int len;
 
-        public PcapDataHeader (byte[] hd) {
+        public PcapDataHeader (byte[] hd, ByteOrder byteOrder) {
+            this.byteOrder = byteOrder;
+
             int offset = 0;
-            timeS = ByteArrays.getInt(hd, offset);
+            timeS = ByteArrays.getInt(hd, offset, byteOrder);
             offset += 4;
-            timeMs = ByteArrays.getInt(hd, offset);
+            timeMs = ByteArrays.getInt(hd, offset, byteOrder);
             offset += 4;
-            caplen = ByteArrays.getInt(hd, offset);
+            caplen = ByteArrays.getInt(hd, offset, byteOrder);
             offset += 4;
-            len = ByteArrays.getInt(hd, offset);
+            len = ByteArrays.getInt(hd, offset, byteOrder);
         }
 
-        public PcapDataHeader(int timeS, int timeMs, int caplen, int len) {
+        public PcapDataHeader(int timeS, int timeMs, int caplen, int len, ByteOrder byteOrder) {
+            this.byteOrder = byteOrder;
+
             this.timeS = timeS;
             this.timeMs = timeMs;
             this.caplen = caplen;
@@ -129,10 +148,10 @@ public class TsharkMappings {
         }
 
         public  byte[] toByteArray(){
-            byte[] timeSArray = ByteArrays.toByteArray(timeS);
-            byte[] timeMsArray = ByteArrays.toByteArray(timeMs);
-            byte[] caplenArray = ByteArrays.toByteArray(caplen);
-            byte[] lenArray = ByteArrays.toByteArray(len);
+            byte[] timeSArray = ByteArrays.toByteArray(timeS, byteOrder);
+            byte[] timeMsArray = ByteArrays.toByteArray(timeMs, byteOrder);
+            byte[] caplenArray = ByteArrays.toByteArray(caplen, byteOrder);
+            byte[] lenArray = ByteArrays.toByteArray(len, byteOrder);
 
             int countLength = 0;
             byte[] pdhByteArray = new byte[16];
@@ -147,6 +166,11 @@ public class TsharkMappings {
 
             return pdhByteArray;
         }
+
+        public double getTime(){
+            double time = timeMs;
+            return time/1000000 + timeS;
+        }
     }
 
-    }
+}

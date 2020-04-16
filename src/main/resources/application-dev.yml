@@ -17,11 +17,14 @@ capture:
     count: -1
     readTimeout: 60
     snaplen: 65536
-    filter: (dst 192.168.31.137 or src 192.168.31.137)
+    filter: tcp port 80 and (dst 192.168.31.137 or src 192.168.31.137)
   pcapNetworkInterface:
     enableAutoFind: true
+
+listener:
   convertListener:
-    convertGrain: 1
+    convertGrain: 3
+    timeout: 100
 
 pcap4j:
   extension:

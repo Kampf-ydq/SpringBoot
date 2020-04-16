@@ -1,5 +1,7 @@
 package com.ditecting.honeyeye.pcap4j.extension.core;
 
+import com.ditecting.honeyeye.pcap4j.extension.packet.FullPacket;
+import com.ditecting.honeyeye.pcap4j.extension.packet.pool.FullPacketPool;
 import com.sun.jna.Pointer;
 import lombok.extern.slf4j.Slf4j;
 import org.pcap4j.core.*;
@@ -66,7 +68,7 @@ public class FullPcapHandle extends PcapHandle {
                         FullPcapHandle.this.timestamps.set(ts);
                         FullPcapHandle.this.originalLengths.set(len);
                         Packet p = (Packet) PacketFactories.getFactory(Packet.class, DataLinkType.class).newInstance(ba, 0, ba.length, GotFullPacketFuncExecutor.this.dlt);
-                        TsharkMappings.PcapDataHeader pdh = new TsharkMappings.PcapDataHeader(hd);
+                        TsharkMappings.PcapDataHeader pdh = new TsharkMappings.PcapDataHeader(hd, byteOrder);
 //                        log.info("PcapDataHeader: " + ByteArrays.toHexString(pdh.toByteArray(), ""));
                         GotFullPacketFuncExecutor.this.listener.gotFullPacket(p, pdh);
                     }

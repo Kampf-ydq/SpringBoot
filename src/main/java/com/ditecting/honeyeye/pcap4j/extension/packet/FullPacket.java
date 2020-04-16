@@ -3,7 +3,7 @@ package com.ditecting.honeyeye.pcap4j.extension.packet;
 import com.ditecting.honeyeye.pcap4j.extension.core.TsharkMappings;
 import com.ditecting.honeyeye.pcap4j.extension.packet.factory.JsonPacketFactories;
 import com.ditecting.honeyeye.pcap4j.extension.packet.factory.JsonPacketFactory;
-import com.ditecting.honeyeye.pcap4j.extension.utils.TsharkUtils;
+import com.ditecting.honeyeye.pcap4j.extension.utils.TsharkUtil;
 import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
 import org.pcap4j.packet.*;
@@ -33,12 +33,17 @@ public class FullPacket implements Serializable{
     private long sequence = -1;// -1 means unassigned value
     private boolean complete;
 
-//    public static FullPacket newFullPacket(FullPacket fullPacket, TsharkMappings.PcapFileHeader pcapFileHeader){
-//        if(!fullPacket.isComplete()){
-//            rebuildFullPacket(fullPacket.getPacket(), fullPacket.getPcapDataHeader(), pcapFileHeader);
-//        }
-//        return fullPacket;
-//    }
+    public static FullPacket newFullPacket(Packet packet, TsharkMappings.PcapDataHeader pcapDataHeader, TsharkMappings.PcapFileHeader pcapFileHeader){//TODO test
+        FullPacket fullPacket = new FullPacket(packet, pcapDataHeader);
+        if(!fullPacket.isComplete()){
+            rebuildFullPacket(fullPacket.getPacket(), fullPacket.getPcapDataHeader(), pcapFileHeader);
+        }
+        return fullPacket;
+    }
+
+    public static FullPacket newFullPacket(Packet packet, TsharkMappings.PcapDataHeader pcapDataHeader){
+        return new FullPacket(packet, pcapDataHeader);
+    }
 
     public FullPacket(Packet packet, TsharkMappings.PcapDataHeader pcapDataHeader){
         if(!isDissectedAbsolutely(packet)){
@@ -93,7 +98,7 @@ public class FullPacket implements Serializable{
      * @param pcapDataHeader pcapDataHeader
      * @param pcapFileHeader pcapFileHeader
      */
-    private static void rebuildFullPacket (Packet packet, TsharkMappings.PcapDataHeader pcapDataHeader, TsharkMappings.PcapFileHeader pcapFileHeader) {
+    public static void rebuildFullPacket (Packet packet, TsharkMappings.PcapDataHeader pcapDataHeader, TsharkMappings.PcapFileHeader pcapFileHeader) {
         String rawJsonPacket = generateRawJsonPacket(packet, pcapDataHeader, pcapFileHeader);
 
         rebuildFullPacket(packet, rawJsonPacket);
@@ -193,7 +198,7 @@ public class FullPacket implements Serializable{
         countLength += pdhArray.length;
         System.arraycopy(rawPacketData, 0, rawData, countLength, rawPacketData.length);
 
-        return TsharkUtils.executeTshark(rawData);
+        return TsharkUtil.executeTshark(rawData);
     }
 
     private static Packet findUnknownPacket (Packet packet){

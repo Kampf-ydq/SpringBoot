@@ -13,14 +13,7 @@ import java.util.List;
  * @date 2020/3/28 10:19
  */
 @Slf4j
-public class GsonUtils {
-    private static final Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").create();
-
-    private GsonUtils() {
-    }
-
-    public Gson getGson(){ return  gson;}
-
+public class GsonUtil {
 
     public static List<String> getJsonPacket (String rawJson, NamedNumber number, boolean cascade, List<String> myChildren){
         List<String> jsonList = new ArrayList<>();

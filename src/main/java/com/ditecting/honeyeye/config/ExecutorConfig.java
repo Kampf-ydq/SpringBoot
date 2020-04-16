@@ -30,7 +30,7 @@ public class ExecutorConfig {
         ThreadPoolTaskExecutor executor = new VisibleThreadPoolTaskExecutor();
         executor.setCorePoolSize(5);
         executor.setMaxPoolSize(10);
-        executor.setQueueCapacity(100);
+        executor.setQueueCapacity(9999);
         executor.setThreadNamePrefix("async-convert-");
         executor.setRejectedExecutionHandler(new ThreadPoolExecutor.CallerRunsPolicy());//invoker threads will process their excessive tasks by themselves
         executor.initialize();

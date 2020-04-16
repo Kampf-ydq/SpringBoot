@@ -12,11 +12,11 @@ import java.util.*;
  * @date 2020/3/28 15:46
  */
 @Slf4j
-public class TsharkUtils {
+public class TsharkUtil {
 
     private static String tsharkPath;
 
-    public TsharkUtils(Properties properties) {
+    public TsharkUtil(Properties properties) {
         /*the file path with some spaces has to be surrounded with "" in the cmd command.*/
         String path = properties.getProperty("pcap4j.extension.util.tsharkPath");
         StringBuilder sb = new StringBuilder();

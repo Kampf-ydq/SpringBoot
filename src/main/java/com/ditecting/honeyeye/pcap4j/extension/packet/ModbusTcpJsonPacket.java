@@ -1,10 +1,9 @@
 package com.ditecting.honeyeye.pcap4j.extension.packet;
 
-import com.ditecting.honeyeye.pcap4j.extension.utils.GsonUtils;
+import com.ditecting.honeyeye.pcap4j.extension.utils.GsonUtil;
 import com.ditecting.honeyeye.pcap4j.extension.utils.MatchProtocolEnum;
 import lombok.EqualsAndHashCode;
-import lombok.ToString;
-import lombok.Value;
+import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
 import org.pcap4j.packet.IllegalRawDataException;
 import org.pcap4j.packet.namednumber.TcpPort;
@@ -18,7 +17,7 @@ import java.util.List;
  * @version 1.0
  * @date 2020/3/27 16:33
  */
-@Value
+@Getter
 @Slf4j
 public class ModbusTcpJsonPacket extends AbstractJsonPacket {
     private static final long serialVersionUID = 4109885831026621322L;
@@ -33,20 +32,19 @@ public class ModbusTcpJsonPacket extends AbstractJsonPacket {
     }
 
     private ModbusTcpJsonPacket(String rawJsonPacket, byte[] rawData){
-        List<String> jsonStrArray = GsonUtils.getJsonPacket(rawJsonPacket, myName, true, myChildren);
+        List<String> jsonStrArray = GsonUtil.getJsonPacket(rawJsonPacket, myName, true, myChildren);
 
         String flag = jsonStrArray.get(0);
         if(flag.equals(MatchProtocolEnum.UNMATCHED.name())){
             this.header = null;
         }else {
-            StringBuilder sbHeader = new StringBuilder("{");
+            StringBuilder sbHeader = new StringBuilder();
 
             for(int index = 1; index < jsonStrArray.size(); index++){
                 sbHeader.append(jsonStrArray.get(index));
                 sbHeader.append(",");
             }
             sbHeader.deleteCharAt(sbHeader.length() - 1);
-            sbHeader.append("}");
 
             this.header = new ModbusTcpJsonHeader(sbHeader.toString(), rawData);
         }
@@ -102,7 +100,6 @@ public class ModbusTcpJsonPacket extends AbstractJsonPacket {
         }
     }
 
-    @ToString
     @EqualsAndHashCode
     public static final class ModbusTcpJsonHeader extends AbstractHeader{
         private static final long serialVersionUID = 8667687635206667375L;
@@ -123,6 +120,11 @@ public class ModbusTcpJsonPacket extends AbstractJsonPacket {
         private ModbusTcpJsonHeader(Builder builder){
             this.jsonHeader = builder.jsonHeader;
             this.rawData = builder.rawData;
+        }
+
+        @Override
+        public String toString(){
+            return jsonHeader;
         }
 
         @Override

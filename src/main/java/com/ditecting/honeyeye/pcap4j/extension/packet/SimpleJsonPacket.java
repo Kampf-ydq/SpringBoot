@@ -8,7 +8,6 @@ import lombok.ToString;
  * @version 1.0
  * @date 2020/4/1 14:53
  */
-@ToString
 @EqualsAndHashCode
 abstract class SimpleJsonPacket extends AbstractJsonPacket{
 

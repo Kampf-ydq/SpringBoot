@@ -16,13 +16,13 @@ public class RawPacketConverter {
     private static final Logger logger = LoggerFactory.getLogger(RawPacketConverter.class);
 
     @Async("asyncConvertExecutor")
-    public void executeAsync(Packet packet){
-        logger.info("start executeAsync");
+    public void convert(){
+        logger.info("start RawPacketConverter");
         try {
             Thread.sleep(1000);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
-        logger.info("finish executeAsync");
+        logger.info("finish RawPacketConverter");
     }
 }

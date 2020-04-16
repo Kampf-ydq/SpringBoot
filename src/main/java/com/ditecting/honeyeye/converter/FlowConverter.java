@@ -16,13 +16,13 @@ public class FlowConverter {
     private static final Logger logger = LoggerFactory.getLogger(FlowConverter.class);
 
     @Async("asyncConvertExecutor")
-    public void executeAsync(Packet packet){
-        logger.info("start executeAsync");
+    public void convert(){
+        logger.info("start FlowConverter");
         try {
             Thread.sleep(1000);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
-        logger.info("finish executeAsync");
+        logger.info("finish FlowConverter");
     }
 }

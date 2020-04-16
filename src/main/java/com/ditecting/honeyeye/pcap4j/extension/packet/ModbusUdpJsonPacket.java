@@ -1,10 +1,9 @@
 package com.ditecting.honeyeye.pcap4j.extension.packet;
 
-import com.ditecting.honeyeye.pcap4j.extension.utils.GsonUtils;
+import com.ditecting.honeyeye.pcap4j.extension.utils.GsonUtil;
 import com.ditecting.honeyeye.pcap4j.extension.utils.MatchProtocolEnum;
 import lombok.EqualsAndHashCode;
-import lombok.ToString;
-import lombok.Value;
+import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
 import org.pcap4j.packet.IllegalRawDataException;
 import org.pcap4j.packet.namednumber.UdpPort;
@@ -18,7 +17,7 @@ import java.util.List;
  * @version 1.0
  * @date 2020/3/27 16:33
  */
-@Value
+@Getter
 @Slf4j
 public class ModbusUdpJsonPacket extends AbstractJsonPacket {
     private static final long serialVersionUID = -1152433515422394641L;
@@ -34,18 +33,19 @@ public class ModbusUdpJsonPacket extends AbstractJsonPacket {
     }
 
     private ModbusUdpJsonPacket(String rawJsonPacket, byte[] rawData){
-        List<String> jsonArray = GsonUtils.getJsonPacket(rawJsonPacket, myName, true, myChildren);
-        String flag = jsonArray.get(0);
+        List<String> jsonStrArray = GsonUtil.getJsonPacket(rawJsonPacket, myName, true, myChildren);
+        String flag = jsonStrArray.get(0);
+
         if(flag.equals(MatchProtocolEnum.UNMATCHED.name())){
             this.header = null;
         }else {
-            StringBuilder sbHeader = new StringBuilder("{");
-            for (String json : jsonArray) {
-                sbHeader.append(json);
+            StringBuilder sbHeader = new StringBuilder();
+
+            for(int index = 1; index < jsonStrArray.size(); index++){
+                sbHeader.append(jsonStrArray.get(index));
                 sbHeader.append(",");
             }
             sbHeader.deleteCharAt(sbHeader.length() - 1);
-            sbHeader.append("}");
 
             this.header = new ModbusUdpJsonHeader(sbHeader.toString(), rawData);
         }
@@ -102,7 +102,6 @@ public class ModbusUdpJsonPacket extends AbstractJsonPacket {
         }
     }
 
-    @ToString
     @EqualsAndHashCode
     public static final class ModbusUdpJsonHeader extends AbstractHeader{
 
@@ -123,6 +122,11 @@ public class ModbusUdpJsonPacket extends AbstractJsonPacket {
         private ModbusUdpJsonHeader(Builder builder){
             this.jsonHeader = builder.jsonHeader;
             this.rawData = builder.rawData;
+        }
+
+        @Override
+        public String toString(){
+            return jsonHeader;
         }
 
         @Override

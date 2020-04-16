@@ -1,10 +1,10 @@
 package com.ditecting.honeyeye.pcap4j.extension.packet.pool;
 
-import com.ditecting.honeyeye.load.LoadNote;
+import com.ditecting.honeyeye.picker.loader.LoadNote;
 import com.ditecting.honeyeye.pcap4j.extension.core.TsharkMappings;
 import com.ditecting.honeyeye.pcap4j.extension.packet.FullPacket;
-import com.ditecting.honeyeye.pcap4j.extension.utils.GsonUtils;
-import com.ditecting.honeyeye.pcap4j.extension.utils.TsharkUtils;
+import com.ditecting.honeyeye.pcap4j.extension.utils.GsonUtil;
+import com.ditecting.honeyeye.pcap4j.extension.utils.TsharkUtil;
 import com.google.gson.JsonArray;
 import lombok.Setter;
 import org.pcap4j.packet.Packet;
@@ -32,6 +32,41 @@ public class FullPacketPool {
     public static ThreadLocal<Map<FullPacket.Signature, List<FullPacket>>> fullPacketPoolMap = new ThreadLocal<Map<FullPacket.Signature, List<FullPacket>>>();
     public static ThreadLocal<List<FullPacket>> incompleteFullPacketPoolList = new ThreadLocal<List<FullPacket>>();
     public static ThreadLocal<TsharkMappings.PcapFileHeader> pcapFileHeader = new ThreadLocal<TsharkMappings.PcapFileHeader>();
+    public static ThreadLocal<File> pcapFile = new ThreadLocal<File>();
+
+    public static ThreadLocal<Map<FullPacket.Signature, FullPacket>> currentFullPacketMap = new ThreadLocal<Map<FullPacket.Signature, FullPacket>>();
+    public static ThreadLocal<FullPacket> currentFullPacket = new ThreadLocal<FullPacket>();
+
+    public static void addToCurrentFullPacket(Packet packet, TsharkMappings.PcapDataHeader pcapDataHeader) {
+        currentFullPacket.set(FullPacket.newFullPacket(packet, pcapDataHeader));
+    }
+
+    public static FullPacket generateFullPacket (Packet packet, TsharkMappings.PcapDataHeader pcapDataHeader) {
+        return FullPacket.newFullPacket(packet, pcapDataHeader, pcapFileHeader.get());
+    }
+
+    public static Map<String, FullPacket> addToCurrentFullPacketMap(Packet packet, TsharkMappings.PcapDataHeader pcapDataHeader) {//TODO test
+        Map<String, FullPacket> fullPacketMap = new HashMap<String, FullPacket>();
+
+        if(currentFullPacketMap.get() == null){
+            currentFullPacketMap.set(new HashMap<FullPacket.Signature, FullPacket>());
+        }
+        if (pcapFileHeader == null) {
+            throw new NullPointerException("pcapFileHeader is null.");
+        }
+        FullPacket fullPacket = FullPacket.newFullPacket(packet, pcapDataHeader, pcapFileHeader.get());
+
+        if(currentFullPacketMap.get().containsKey(fullPacket.getSignature())){
+            fullPacketMap.put("pre", currentFullPacketMap.get().get(fullPacket.getSignature()));
+            fullPacketMap.put("cur", fullPacket);
+        }else {
+            fullPacketMap.put("pre", null);
+            fullPacketMap.put("cur", fullPacket);
+        }
+        currentFullPacketMap.get().put(fullPacket.getSignature(), fullPacket);
+
+        return fullPacketMap;
+    }
 
     /**
      * generate FullPacket with packet and pcapDataHeader, and add FullPacket to the Pool
@@ -88,9 +123,9 @@ public class FullPacketPool {
             e.printStackTrace();
         }
 
-        String rawJsonPacket = TsharkUtils.executeTshark(tempPcapFile);
+        String rawJsonPacket = TsharkUtil.executeTshark(tempPcapFile);
 
-        JsonArray jsonPacketArray = GsonUtils.getJsonPacketArray(rawJsonPacket);
+        JsonArray jsonPacketArray = GsonUtil.getJsonPacketArray(rawJsonPacket);
 
         /*delete temp .pcap file*/
         deletePcapFile(tempPcapFile);

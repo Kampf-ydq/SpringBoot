@@ -98,8 +98,8 @@ public class PacketUtil {
         /* Network layer */
         sb.append("{");
         sb.append("\"number\": " + fp.getNumber() + ", ");
-        sb.append("\"time\": " + formatDouble(myTime) + ", "); //TODO test
-        sb.append("\"size\": " + mySize + ", "); //TODO test
+        sb.append("\"time\": " + formatDouble(myTime) + ", ");
+        sb.append("\"size\": " + mySize + ", ");
         sb.append("\"srcIp\": \"" + ipV4Packet.getHeader().getSrcAddr().getHostAddress() + "\", ");
         sb.append("\"dstIp\": \"" + ipV4Packet.getHeader().getDstAddr().getHostAddress() + "\"");
 

@@ -34,7 +34,7 @@ public class Transmitter implements Runnable{
     }
 
     @Override
-    public void run() {//TODO test
+    public void run() {
         log.info("Transmitter starts working.");
         try {
             nettyClient = new NettyClient(netAddress, port);

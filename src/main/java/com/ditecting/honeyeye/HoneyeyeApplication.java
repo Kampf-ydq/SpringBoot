@@ -3,7 +3,6 @@ package com.ditecting.honeyeye;
 import com.ditecting.honeyeye.inputer.capturer.CaptureHolder;
 import com.ditecting.honeyeye.inputer.loader.LoadHolder;
 import lombok.extern.slf4j.Slf4j;
-import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.Banner;
@@ -18,7 +17,6 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
  */
 @Slf4j
 @SpringBootApplication
-@MapperScan ("com.ditecting.honeyeye.dao")
 public class HoneyeyeApplication implements CommandLineRunner {
 
     @Value("${honeyeye.system.inputingMode}")

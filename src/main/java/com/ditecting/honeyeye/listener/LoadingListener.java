@@ -1,11 +1,13 @@
 package com.ditecting.honeyeye.listener;
 
+import com.ditecting.honeyeye.cachepool.InputCachePool;
 import com.ditecting.honeyeye.pcap4j.extension.core.FullPacketListener;
 import com.ditecting.honeyeye.pcap4j.extension.core.TsharkMappings;
-import com.ditecting.honeyeye.pcap4j.extension.packet.pool.FullPacketPool;
 import lombok.NonNull;
+import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
 import org.pcap4j.packet.Packet;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 /**
@@ -15,7 +17,12 @@ import org.springframework.stereotype.Component;
  */
 @Slf4j
 @Component
+@Setter
 public class LoadingListener implements FullPacketListener {
+
+    @Autowired
+    private InputCachePool inputCachePool;
+
     /**
      *  observer mode, call back to gotFullPacket() to process the packet content after loading it
      *
@@ -24,11 +31,11 @@ public class LoadingListener implements FullPacketListener {
      */
     @Override
     public void gotFullPacket(@NonNull Packet packet, @NonNull TsharkMappings.PcapDataHeader pcapDataHeader) {
-        FullPacketPool.addToFullPacketPool(packet, pcapDataHeader);
+        inputCachePool.addFullPacket(packet, pcapDataHeader);
     }
 
     /**
-     * observer mode, call back to gotPacket() to process the packet content after capturing it
+     * observer mode, call back to gotPacket() to process the packet content after loading it
      *
      * @param packet
      */

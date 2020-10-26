@@ -104,7 +104,7 @@ public class TsharkUtil {
      *
      * @return dissected result
      */
-    private static Map executeCommand(String command){
+    public static Map executeCommand(String command){
         Date date = new Date();
         long commandId = date.getTime();
 //        log.info("the command["+ commandId +"] start: "+command);

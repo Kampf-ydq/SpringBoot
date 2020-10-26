@@ -1,19 +1,15 @@
 package com.ditecting.honeyeye.pcap4j.extension.core;
 
-import com.ditecting.honeyeye.pcap4j.extension.packet.FullPacket;
-import com.ditecting.honeyeye.pcap4j.extension.packet.pool.FullPacketPool;
 import com.sun.jna.Pointer;
 import lombok.extern.slf4j.Slf4j;
 import org.pcap4j.core.*;
 import org.pcap4j.packet.Packet;
 import org.pcap4j.packet.factory.PacketFactories;
 import org.pcap4j.packet.namednumber.DataLinkType;
-import org.pcap4j.util.ByteArrays;
 
 import java.nio.ByteOrder;
 import java.sql.Timestamp;
 import java.util.concurrent.Executor;
-import java.util.concurrent.locks.ReentrantReadWriteLock;
 
 /**
  * @author CSheng

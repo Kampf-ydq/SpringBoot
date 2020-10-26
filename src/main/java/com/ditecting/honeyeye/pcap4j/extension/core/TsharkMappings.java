@@ -1,16 +1,11 @@
 package com.ditecting.honeyeye.pcap4j.extension.core;
 
-import com.ditecting.honeyeye.picker.capturer.CaptureHolder;
-import com.ditecting.honeyeye.picker.loader.LoadHolder;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
-import org.pcap4j.packet.namednumber.DataLinkType;
 import org.pcap4j.util.ByteArrays;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import javax.annotation.PostConstruct;
 import java.nio.ByteOrder;
 
 /**
@@ -21,37 +16,6 @@ import java.nio.ByteOrder;
 @Slf4j
 @Component
 public class TsharkMappings {
-    public static final ByteOrder NATIVE_BYTE_ORDER = ByteOrder.nativeOrder();
-//    public static final ByteOrder WRITE_BYTE_ORDER = ByteOrder.BIG_ENDIAN; // ByteOrder.BIG_ENDIAN by default
-    private static DataLinkType dlt = DataLinkType.NULL;
-
-    @Autowired
-    CaptureHolder captureHolder;
-    private static CaptureHolder staticCaptureHolder;
-
-    @Autowired
-    LoadHolder loadHolder;
-    private static LoadHolder staticLoadHolder;
-
-    @PostConstruct
-    public void init() {
-        staticCaptureHolder = captureHolder;
-        staticLoadHolder = loadHolder;
-    }
-
-    public static DataLinkType getDlt(){
-        if(dlt.value() == DataLinkType.NULL.value()){
-            /*only when the system starts to capture or load data, dlt will get the real DataLinkType*/
-            synchronized(dlt){
-                if(staticCaptureHolder.getHandle() != null){
-                    dlt = staticCaptureHolder.getHandle().getDlt();
-                }else if(staticLoadHolder.getHandle() != null){
-                    dlt = staticLoadHolder.getHandle().getDlt();
-                }
-            }
-        }
-        return dlt;
-    }
 
     public static PcapFileHeader generateDefaultPcapFileHeader () {
         PcapFileHeader pcapFileHeader = TsharkMappings.PcapFileHeader.builder()
@@ -136,15 +100,6 @@ public class TsharkMappings {
             caplen = ByteArrays.getInt(hd, offset, byteOrder);
             offset += 4;
             len = ByteArrays.getInt(hd, offset, byteOrder);
-        }
-
-        public PcapDataHeader(int timeS, int timeMs, int caplen, int len, ByteOrder byteOrder) {
-            this.byteOrder = byteOrder;
-
-            this.timeS = timeS;
-            this.timeMs = timeMs;
-            this.caplen = caplen;
-            this.len = len;
         }
 
         public  byte[] toByteArray(){

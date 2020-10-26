@@ -1,12 +1,16 @@
 package com.ditecting.honeyeye.listener;
 
-import com.ditecting.honeyeye.converter.FlowConverter;
-import com.ditecting.honeyeye.converter.PacketConverter;
-import com.ditecting.honeyeye.converter.RawPacketConverter;
-import com.ditecting.honeyeye.converter.session.SessionConverter;
+import com.ditecting.honeyeye.cachepool.ConverterCachePool;
+import com.ditecting.honeyeye.cachepool.OutputCachePool;
+import com.ditecting.honeyeye.cachepool.PluginCachePool;
+import com.ditecting.honeyeye.cachepool.TransmitterCachePool;
+import com.ditecting.honeyeye.converter.Converter;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
+
+import java.util.concurrent.CountDownLatch;
 
 /**
  * @author CSheng
@@ -14,45 +18,66 @@ import org.springframework.stereotype.Component;
  * @date 2020/3/27 16:33
  */
 @Component
+@Slf4j
 public class ConvertingListener {
-    /* the mode of parsing application layer protocols, "excludable=true" only just parse specified protocols,
-     * otherwise parse other protocols as UnrelatedPacket.
-     */
-//    private static int excludingMode;
 
-    /* converting grain, including packet(1), flow(2), and session(3)*/
-    @Value("${listener.convertListener.convertGrain}")
-    private int convertGrain;
+    @Value("${honeyeye.listener.transmittingGrain}")
+    private int transmittingGrain;
+    @Value("${honeyeye.listener.transmittingTimeout}")
+    private double transmittingTimeout;
 
-    @Value("${listener.convertListener.timeout}")
-    private double timeout;
+    @Value("${honeyeye.listener.outputtingGrain}")
+    private int outputtingGrain;
+    @Value("${honeyeye.listener.outputtingTimeout}")
+    private double outputtingTimeout;
+
+    @Value("${honeyeye.listener.pluginGrain}")
+    private int pluginGrain;
+    @Value("${honeyeye.listener.pluginTimeout}")
+    private double pluginTimeout;
+
+    @Value("${honeyeye.system.inputingMode}")
+    private int inputingMode;// 1:capture, 2:load
+
+    @Value("${honeyeye.system.outputingMode}")
+    private int outputingMode;// 1:transmission, 2:storage, 3: double
 
     @Autowired
-    RawPacketConverter rawPacketConverter;
+    private ConverterCachePool converterCachePool;
 
     @Autowired
-    PacketConverter packetConverter;
+    private TransmitterCachePool transmitterCachePool;
 
     @Autowired
-    FlowConverter flowConverter;
+    private OutputCachePool outputCachePool;
 
     @Autowired
-    SessionConverter sessionConverter;
+    private PluginCachePool pluginCachePool;
 
-    public void gotFullPacketPool () {
-        switch (convertGrain){
+    public void gotPacketMeeting (CountDownLatch countDownLatch) {
+        Converter converter;
+        Thread thread;
+        switch (outputingMode) {
             case 1:
-               packetConverter.convert();
+                converter = new Converter(converterCachePool, transmitterCachePool, null, null, countDownLatch, transmittingGrain, outputtingGrain, pluginGrain, transmittingTimeout, outputtingTimeout, pluginTimeout);
+                thread = new Thread(converter);
+                thread.start();
                 break;
             case 2:
-               flowConverter.convert();
+                converter = new Converter(converterCachePool, null, outputCachePool, null, countDownLatch, transmittingGrain, outputtingGrain, pluginGrain, transmittingTimeout, outputtingTimeout, pluginTimeout);
+                thread = new Thread(converter);
+                thread.start();
                 break;
             case 3:
-               sessionConverter.convert(timeout);
+                converter = new Converter(converterCachePool, transmitterCachePool, outputCachePool, null, countDownLatch, transmittingGrain, outputtingGrain, pluginGrain, transmittingTimeout, outputtingTimeout, pluginTimeout);
+                thread = new Thread(converter);
+                thread.start();
                 break;
             default:
-                rawPacketConverter.convert();
+                converter = new Converter(converterCachePool, null, null, pluginCachePool, countDownLatch, transmittingGrain, outputtingGrain, pluginGrain, transmittingTimeout, outputtingTimeout, pluginTimeout);
+                thread = new Thread(converter);
+                thread.start();
+                log.warn("No Transmitter or Outputer is started.");
         }
     }
-
 }

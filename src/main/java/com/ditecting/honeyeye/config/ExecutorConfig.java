@@ -19,14 +19,14 @@ import java.util.concurrent.Executor;
 import java.util.concurrent.ThreadPoolExecutor;
 
 
-@Configuration
-@EnableAsync
-public class ExecutorConfig {
+//@Configuration
+//@EnableAsync
+public class ExecutorConfig {//the loading process has been closed
     private static final Logger logger = LoggerFactory.getLogger(ExecutorConfig.class);
 
-    @Bean
+//    @Bean
     public Executor asyncConvertExecutor(){
-        logger.info("start asyncConvertExecutor");
+        logger.info("Start asyncConvertExecutor.");
         ThreadPoolTaskExecutor executor = new VisibleThreadPoolTaskExecutor();
         executor.setCorePoolSize(5);
         executor.setMaxPoolSize(10);
@@ -37,9 +37,9 @@ public class ExecutorConfig {
         return executor;
     }
 
-    @Bean
+//    @Bean
     public Executor asyncTsharkExecutor(){
-        logger.info("start asyncTsharkExecutor");
+        logger.info("Start asyncTsharkExecutor.");
         ThreadPoolTaskExecutor executor = new VisibleThreadPoolTaskExecutor();
         executor.setCorePoolSize(5);
         executor.setMaxPoolSize(10);

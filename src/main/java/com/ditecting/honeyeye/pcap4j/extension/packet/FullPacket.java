@@ -32,9 +32,10 @@ public class FullPacket implements Serializable{
     private final Signature signature;
     private long sequence = -1;// -1 means unassigned value
     private boolean complete;
+    private long number;// the global number of the FullPacket
 
-    public static FullPacket newFullPacket(Packet packet, TsharkMappings.PcapDataHeader pcapDataHeader, TsharkMappings.PcapFileHeader pcapFileHeader){//TODO test
-        FullPacket fullPacket = new FullPacket(packet, pcapDataHeader);
+    public static FullPacket newFullPacket(long globalNumber, Packet packet, TsharkMappings.PcapDataHeader pcapDataHeader, TsharkMappings.PcapFileHeader pcapFileHeader){
+        FullPacket fullPacket = new FullPacket(globalNumber, packet, pcapDataHeader);
         if(!fullPacket.isComplete()){
             rebuildFullPacket(fullPacket.getPacket(), fullPacket.getPcapDataHeader(), pcapFileHeader);
         }
@@ -69,6 +70,41 @@ public class FullPacket implements Serializable{
             signature = null;
         }
     }
+
+    /**
+     * used for loading
+     *
+     * @param globalNumber
+     * @param packet
+     * @param pcapDataHeader
+     */
+    public FullPacket(long globalNumber, Packet packet, TsharkMappings.PcapDataHeader pcapDataHeader){
+        if(!isDissectedAbsolutely(packet)){
+            complete = false;
+        }else {
+            complete = true;
+        }
+
+        this.number = globalNumber;
+        this.packet = packet;
+        this.pcapDataHeader = pcapDataHeader;
+
+        IpV4Packet ipV4Packet = null;
+        for(Packet p : packet){
+            if(p instanceof IpV4Packet){
+                ipV4Packet = (IpV4Packet)p;
+                break;
+            }
+        }
+
+        if(ipV4Packet != null){
+            signature = new Signature(ipV4Packet.getHeader().getSrcAddr(), ipV4Packet.getHeader().getDstAddr());
+        }else {
+            signature = null;
+        }
+    }
+
+
 
     public void setSequence (long seq){
         this.sequence = seq;
@@ -161,7 +197,7 @@ public class FullPacket implements Serializable{
 
             /*use the newPacket to alter the unknownPacket */
             if(newPacket == null){
-                log.warn("the packet contains non-tcp and non-udp transport layer data which cannot be dissected [" + packet.toString() + "]");
+//                log.warn("the packet contains non-tcp and non-udp transport layer data which cannot be dissected [" + packet.toString() + "]");
             }else{
                 updateUnknownPacket(packet, newPacket);
             }
@@ -291,6 +327,62 @@ public class FullPacket implements Serializable{
                 }
             return hashcode;
         }
+    }
 
+    @Getter
+    public static final class SubSignature{
+        private int prot;//transport protocol, 1:tcp, 2:udp
+        private int srcPort;
+        private int dstPort;
+
+        public SubSignature(int prot, int srcPort, int dstPort){
+            this.prot = prot;
+            this.srcPort = srcPort;
+            this.dstPort = dstPort;
+        }
+
+        /**
+         * ignore port order
+         * @param obj
+         * @return
+         */
+        @Override
+        public boolean equals(Object obj){
+            if(this == obj){
+                return true;
+            }
+
+            if(obj == null){
+                return false;
+            }
+
+            if(obj instanceof SubSignature){
+                SubSignature other = (SubSignature) obj;
+                if(prot != other.getProt()){
+                    return false;
+                }
+                if(srcPort==other.srcPort && dstPort==other.dstPort){
+                    return true;
+                }
+                if(srcPort==other.dstPort && dstPort==other.srcPort){
+                    return true;
+                }
+            }
+
+            return false;
+        }
+
+        @Override
+        public int hashCode() {
+            int hashcode = 1;
+            if(srcPort < dstPort){
+                hashcode = 31*hashcode + srcPort;
+                hashcode = 31*hashcode + dstPort;
+            }else {
+                hashcode = 31*hashcode + dstPort;
+                hashcode = 31*hashcode + srcPort;
+            }
+            return hashcode;
+        }
     }
 }

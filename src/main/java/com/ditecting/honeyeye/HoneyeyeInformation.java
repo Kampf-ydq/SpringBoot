@@ -57,7 +57,7 @@ public class HoneyeyeInformation {
     @Value("${honeyeye.outputer.fileName}")
     private String outputtingFileName;
 
-    public void getHoneyeyeInformation(){//TODO test
+    public void getHoneyeyeInformation(){
         log.info("******************************************* Honeyeye *******************************************");
         log.info("Tshark path: " + tsharkPath);
         log.info("Packet meeting timeout threshold: " + meetingTimeout + " [s]");

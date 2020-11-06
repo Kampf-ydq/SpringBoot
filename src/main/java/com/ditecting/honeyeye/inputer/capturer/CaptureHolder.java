@@ -1,5 +1,6 @@
 package com.ditecting.honeyeye.inputer.capturer;
 
+import com.ditecting.honeyeye.HoneyeyeInformation;
 import com.ditecting.honeyeye.cachepool.InputCachePool;
 import com.ditecting.honeyeye.inputer.PacketCounter;
 import com.ditecting.honeyeye.inputer.capturer.scheduler.DefaultSchedulingConfigurer;
@@ -85,6 +86,9 @@ public class CaptureHolder {
     @Autowired
     private PacketCounter packetCounter;
 
+    @Autowired
+    private HoneyeyeInformation honeyeyeInformation;
+
     @PostConstruct
     private void init() {
         nif = Objects.requireNonNull(myPcapNetworkInterface.getMyPcapNetworkInterface(), "NIF cannot be NULL");
@@ -99,6 +103,7 @@ public class CaptureHolder {
     }
 
     public void capture() throws PcapNativeException, NotOpenException, InterruptedException {
+        honeyeyeInformation.getHoneyeyeInformation();
         log.info("Start capturing ["+ currentTimeMillis() +"].");
 
         /* Start MonitorTask*/

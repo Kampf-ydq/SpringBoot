@@ -16,7 +16,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
  * @date 2020/3/27 16:33
  */
 @Slf4j
-@SpringBootApplication
+//@SpringBootApplication
 public class HoneyeyeApplication implements CommandLineRunner {
 
     @Value("${honeyeye.system.inputingMode}")

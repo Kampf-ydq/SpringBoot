@@ -1,5 +1,6 @@
 package com.ditecting.honeyeye.inputer.loader;
 
+import com.ditecting.honeyeye.HoneyeyeInformation;
 import com.ditecting.honeyeye.cachepool.InputCachePool;
 import com.ditecting.honeyeye.inputer.PacketCounter;
 import com.ditecting.honeyeye.listener.ConvertingListener;
@@ -63,6 +64,9 @@ public class LoadHolder {
     @Autowired
     private PacketCounter packetCounter;
 
+    @Autowired
+    private HoneyeyeInformation honeyeyeInformation;
+
     @PostConstruct
     private void init() {
         int threadCount = 1;
@@ -85,6 +89,7 @@ public class LoadHolder {
     }
 
     public void load() throws InterruptedException {
+        honeyeyeInformation.getHoneyeyeInformation();
         log.info("Start loading ["+ currentTimeMillis() +"].");
 
         /* Start OnlineConverter*/

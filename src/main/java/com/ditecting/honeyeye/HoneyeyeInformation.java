@@ -77,39 +77,48 @@ public class HoneyeyeInformation {
         switch (outputingMode){
             case 1:
                 log.info("Output mode: " + "Transmission");
-                log.info("Transmission grain: " + transmittingGrain);
+                log.info("Transmission grain: " + convertGrain(transmittingGrain));
                 log.info("Transmission timeout threshold: " + transmittingTimeout + " [s]");
                 log.info("Transmission port: " + transmittingPort);
                 log.info("Transmission netAddress: " + transmittingNetAddress);
                 break;
             case 2:
                 log.info("Output mode: " + "Storage");
-                log.info("Storage grain: " + outputtingGrain);
+                log.info("Storage grain: " + convertGrain(outputtingGrain));
                 log.info("Storage timeout threshold: " + outputtingTimeout + " [s]");
                 log.info("Storage filePath: " + outputtingFilePath);
                 log.info("Storage fileName: " + outputtingFileName);
                 break;
             case 3:
                 log.info("Output mode: " + "Transmission & Storage");
-                log.info("Transmission grain: " + transmittingGrain);
+                log.info("Transmission grain: " + convertGrain(transmittingGrain));
                 log.info("Transmission timeout threshold: " + transmittingTimeout + " [s]");
                 log.info("Transmission port: " + transmittingPort);
                 log.info("Transmission netAddress: " + transmittingNetAddress);
-                log.info("Storage grain: " + outputtingGrain);
+                log.info("Storage grain: " + convertGrain(outputtingGrain));
                 log.info("Storage timeout threshold: " + outputtingTimeout + " [s]");
                 log.info("Storage filePath: " + outputtingFilePath);
                 log.info("Storage fileName: " + outputtingFileName);
                 break;
             default:
                 log.info("Output mode: " + "Plugin");
-                log.info("Plugin grain: " + pluginGrain);
+                log.info("Plugin grain: " + convertGrain(pluginGrain));
                 log.info("Plugin timeout threshold: " + pluginTimeout + " [s]");
         }
         log.info("*************************************************************************************************");
     }
 
      private String convertGrain (int grain) {
-return null;
+         switch (grain){
+             case 1:
+                 return "Packet";
+             case 2:
+                 return "Flow";
+             case 3:
+                 return "Session";
+             default:
+                 return "RawPacket";
+         }
      }
 
 }

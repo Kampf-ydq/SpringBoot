@@ -6,29 +6,29 @@ pcap4j:
 honeyeye:
   system:
     inputingMode: 1 # 1:capture, 2:load
-    outputingMode: 0 # 0:plugin, 1:transmission, 2:storage, 3: transmission and storage
+    outputingMode: 0 # others:plugin, 1:transmission, 2:storage, 3: transmission and storage
   inputer:
     capturer:
       count: -1
       readTimeout: 60
       snaplen: 65536
-      filter: tcp port 443 and (dst 192.168.31.137 or src 192.168.31.137)
+      filter: tcp port 443 and (dst 192.168.0.1 or src 192.168.0.1)
       interval: 2
       enableAutoFind: true
     loader:
-      filePath: "C:\\Users\\18809\\Desktop\\Honeyeye A Network Traffic Collection Framework for Distributed Honeynets of Industrial Control Systems\\test\\test3.pcap"
+      filePath: "C:\\hello.pcap"
   listener:
-    transmittingGrain: 0 # 0:rawPacket, 1:packet, 2:flow, 3:session
-    transmittingTimeout: 10  # in [s]
-    outputtingGrain: 2 # 0:rawPacket, 1:packet, 2:flow, 3:session
-    outputtingTimeout: 0.5  # in [s]
-    pluginGrain: 3 # 0:rawPacket, 1:packet, 2:flow, 3:session
+    transmittingGrain: 0 # others:rawPacket, 1:packet, 2:flow, 3:session
+    transmittingTimeout: 1  # in [s]
+    outputtingGrain: 0 # others:rawPacket, 1:packet, 2:flow, 3:session
+    outputtingTimeout: 1  # in [s]
+    pluginGrain: 0 # others:rawPacket, 1:packet, 2:flow, 3:session
     pluginTimeout: 1  # in [s]
     meetingTimeout: 100000000000000000  # in [s]
     segmentMax: 10000
     transmittingListener:
       port: 5150
-      netAddress:  192.168.31.137 #202.199.13.252 #192.168.31.137
+      netAddress:  192.168.0.1
   outputer:
-    filePath: "C:\\Users\\18809\\Desktop\\test\\"
-    fileName: "run1_6rtu(1)"
+    filePath: "C:\\"
+    fileName: "hello"

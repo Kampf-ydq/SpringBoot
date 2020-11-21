@@ -109,7 +109,13 @@ public class MyPcapNetworkInterface {
                 for (PcapAddress pcapAddress : addresses) {
                     if (pcapAddress instanceof PcapIpV4Address) {
                         ipv4Address = pcapAddress.getAddress().getHostAddress();
-                        existPnif = true;
+                        String A_segment = ipv4Address.substring(0, ipv4Address.indexOf('.'));
+                        if(A_segment.equals("0") || A_segment.equals("255")){
+                            ipv4Address = null;
+                        }else{
+                            existPnif = true;
+                        }
+
                         break;
                     }
                 }

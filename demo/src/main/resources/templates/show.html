@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Thymeleaf 模板渲染</title>
+</head>
+<body>
+<div>
+    <p th:text="'主题：' + ${theme}"></p>
+    <p th:text="'姓名：' + ${star.name}"></p>
+    <p th:text="'介绍：' + ${star.content}"></p>
+</div>
+</body>
+</html>

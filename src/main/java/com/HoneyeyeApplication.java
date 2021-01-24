@@ -1,4 +1,4 @@
-package com.ditecting.honeyeye;
+package com;
 
 import com.ditecting.honeyeye.inputer.capturer.CaptureHolder;
 import com.ditecting.honeyeye.inputer.loader.LoadHolder;
@@ -16,8 +16,24 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
  * @date 2020/3/27 16:33
  */
 @Slf4j
-//@SpringBootApplication
-public class HoneyeyeApplication implements CommandLineRunner {
+@SpringBootApplication
+public class HoneyeyeApplication {
+
+    @Value("${honeyeye.system.inputingMode}")
+    private int inputingMode;// 1:capture, 2:load
+
+    @Autowired
+    CaptureHolder captureHolder;
+
+    @Autowired
+    LoadHolder loadHolder;
+
+    public static void main(String[] args) {
+        SpringApplication.run(HoneyeyeApplication.class, args);
+    }
+}
+
+/*public class HoneyeyeApplication implements CommandLineRunner {
 
     @Value("${honeyeye.system.inputingMode}")
     private int inputingMode;// 1:capture, 2:load
@@ -32,6 +48,7 @@ public class HoneyeyeApplication implements CommandLineRunner {
 		SpringApplication app = new SpringApplication(HoneyeyeApplication.class);
 		app.setBannerMode(Banner.Mode.OFF);
 		app.run(args);
+        SpringApplication.run(HoneyeyeApplication.class, args);
 	}
 
 	@Override
@@ -42,4 +59,4 @@ public class HoneyeyeApplication implements CommandLineRunner {
             default:
         }
 	}
-}
+}*/

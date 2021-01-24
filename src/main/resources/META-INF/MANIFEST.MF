@@ -17,5 +17,5 @@ Class-Path: spring-tx-5.2.4.RELEASE.jar spring-core-5.2.4.RELEASE.jar
  ava-8.0.13.jar mybatis-spring-2.0.4.jar logback-classic-1.2.3.jar spr
  ing-boot-starter-2.2.5.RELEASE.jar spring-boot-starter-logging-2.2.5.
  RELEASE.jar gson-2.8.6.jar
-Main-Class: com.ditecting.honeyeye.HoneyeyeApplication
+Main-Class: com.HoneyeyeApplication
 

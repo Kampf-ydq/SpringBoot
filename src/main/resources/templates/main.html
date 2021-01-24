@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>HoneyEye</title>
+    <script src="../js/jquery-3.5.1.min.js"></script>
+    <script src="../js/bootstrap-3.3.7-dist/js/bootstrap.js"></script>
+    <link rel="stylesheet" href="../js/bootstrap-3.3.7-dist/css/bootstrap.css">
+    <link rel="stylesheet" href="../css/layout.css">
+    <link rel="stylesheet" href="../css/common.css">
+
+    <!--<img src="../img/honeyeye2.png" height="316" width="951"/>-->
+</head>
+<body>
+    <div id="container">
+        <nav class="navbar navbar-inverse navbar-fixed-top">
+            <div class="container-fluid">
+                <!-- Brand and toggle get grouped for better mobile display -->
+                <div class="navbar-header">
+                    <img src="../img/honeyeye1.png" width="180"/>
+                </div>
+
+                <div class="navbar-header" id="nav_word">
+                    <ul class="nav navbar-nav">
+                        <li class="nav_word_solo"><a th:href="@{/monitorPage}">实时监测</a></li>
+                        <li class="nav_word_solo"><a th:href="@{/onlinePage}" target="mainframe">在线分析</a></li>
+                        <li class="nav_word_solo"><a th:href="@{/offlinePage}" target="mainframe">离线分析</a></li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+        <div id="mainframe">
+            <iframe th:src="@{/offlinePage}" name="mainFrame"
+                    frameborder="1" width="100%" height="100%" scrolling="no" noresize="noresize"> </iframe>
+        </div>
+    </div>
+</body>
+</html>
+ 

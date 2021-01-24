@@ -1,12 +1,22 @@
+#thymelea模板配置
+spring.thymeleaf.prefix: classpath:/templates/
+spring.thymeleaf.suffix: .html
+spring.thymeleaf.mode: HTML5
+spring.thymeleaf.encoding: UTF-8
+#热部署文件，页面不产生缓存，及时更新
+spring.thymeleaf.cache: false
+spring.resources.chain.strategy.content.enabled: true
+spring.resources.chain.strategy.content.paths: /**
+
 pcap4j:
   extension:
     util:
-      tsharkPath: F:\Program Files\Wireshark\tshark.exe
+      tsharkPath: G:\NETSCtools\Wireshark\tshark.exe
 
 honeyeye:
   system:
     inputingMode: 1 # 1:capture, 2:load
-    outputingMode: 0 # others:plugin, 1:transmission, 2:storage, 3: transmission and storage
+    outputingMode: 2 # others:plugin, 1:transmission, 2:storage, 3: transmission and storage
   inputer:
     capturer:
       count: -1
@@ -16,12 +26,12 @@ honeyeye:
       interval: 2
       enableAutoFind: true
     loader:
-      filePath: "C:\\hello.pcap"
+      filePath: "G:\\NETSC\\tanZhen\\honeynet\\Modbus_dataset\\characterization_modbus_6RTU_with_operate.pcap"
   listener:
     transmittingGrain: 0 # others:rawPacket, 1:packet, 2:flow, 3:session
     transmittingTimeout: 1  # in [s]
-    outputtingGrain: 0 # others:rawPacket, 1:packet, 2:flow, 3:session
-    outputtingTimeout: 1  # in [s]
+    outputtingGrain: 2 # others:rawPacket, 1:packet, 2:flow, 3:session
+    outputtingTimeout: 5  # in [s]
     pluginGrain: 0 # others:rawPacket, 1:packet, 2:flow, 3:session
     pluginTimeout: 1  # in [s]
     meetingTimeout: 100000000000000000  # in [s]
@@ -30,5 +40,5 @@ honeyeye:
       port: 5150
       netAddress:  192.168.0.1
   outputer:
-    filePath: "C:\\"
-    fileName: "hello"
+    filePath: "G:\\NETSC\\tanZhen\\honeynet\\storage\\"
+    fileName: "test"

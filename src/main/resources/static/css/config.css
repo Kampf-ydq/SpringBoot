@@ -1,0 +1,212 @@
+input{ vertical-align:middle; margin:0; padding:0}
+#container4{
+    width: 100%;
+    margin: 30px 50px;
+    left: 50px;
+    top: 30px;
+}
+#container1{
+    width: 50%;
+    margin: 30px 50px;
+    left: 50px;
+    top: 30px;
+}
+
+.headrow{
+
+    font-size: 24px;
+    font-family: "微软雅黑";
+    font-weight: bold;
+    display: block;
+    width: 50%;
+    padding: auto;
+    margin: 40px auto 20px;
+}
+.rowform{
+    float: left;
+    width: 100%;
+    margin-bottom: 12px;
+}
+.halfrow{
+    float: left;
+    width: 50%;
+}
+.longrow{
+     float: left;
+     width: 80%;
+ }
+.shortrow{
+    float: left;
+    width: 20%;
+}
+.input-group2{
+
+}
+ .form-control{/*输入框*/
+     display: inline-block;
+        float: left;
+        width: 150px;
+        height: 34px;
+        /*margin-bottom: 12px ;*/
+}
+ .shortform{
+    width: 50px;
+}
+.longform{
+    width: 330px;
+}
+.long2form{
+    width: 530px;
+}
+ #basic-addon2{
+    display: block;
+    float: left;
+}
+.input-group-addon{/*输入框后接*/
+    display: inline-block;
+    width: auto;
+     height: 34px;
+    /*margin-bottom: 12px;*/
+ }
+.sublabel{
+    float: left;
+    font-size: 16px;
+}
+.sublabel2{
+    float: left;
+    font-size: 16px;
+    margin-left: 32px;
+}
+.mlabel{
+    float: left;
+    font-size: 20px;
+    width: 100%;
+}
+
+
+#switch1{
+    display: inline-block;
+    width: 150px;
+    height: 15px;
+
+}
+.btn-default{
+    /*background-color: rgba(255,255,255,0);*/
+    /*float: right;*/
+    /*margin-left: 60px;*/
+}
+
+
+
+
+
+
+
+
+
+.testswitch-checkbox {
+    display: none;
+}
+
+.testswitch-label {
+    display: block;
+    overflow: hidden;
+    cursor: pointer;
+    border: 2px solid #999999;
+    border-radius: 20px;
+}
+
+.testswitch-inner {
+    display: block;
+    width: 200%;
+    margin-left: -100%;
+    transition: margin 0.3s ease-in 0s;
+}
+
+.testswitch-inner::before, .testswitch-inner::after {
+    display: block;
+    float: right;
+    width: 50%;
+    height: 30px;
+    padding: 0;
+    line-height: 30px;
+    font-size: 14px;
+    color: white;
+    font-family:
+            Trebuchet, Arial, sans-serif;
+    font-weight: bold;
+    box-sizing: border-box;
+}
+
+.testswitch-inner::after {
+    content: attr(data-on);
+    padding-left: 10px;
+    background-color: #00e500;
+    color: #FFFFFF;
+}
+
+.testswitch-inner::before {
+    content: attr(data-off);
+    padding-right: 10px;
+    background-color: #EEEEEE;
+    color: #999999;
+    text-align: right;
+}
+
+.testswitch-switch {
+    position: absolute;
+    display: block;
+    width: 22px;
+    height: 22px;
+    margin: 4px;
+    background: #FFFFFF;
+    top: 0;
+    bottom: 0;
+    right: 56px;
+    border: 2px solid #999999;
+    border-radius: 20px;
+    transition: all 0.3s ease-in 0s;
+}
+
+.testswitch-checkbox:checked + .testswitch-label .testswitch-inner {
+    margin-left: 0;
+}
+
+.testswitch-checkbox:checked + .testswitch-label .testswitch-switch {
+    right: 0px;
+}
+
+
+.file {
+    padding: 4px 10px;
+    height: 30px;
+    width: 100px;
+    line-height: 20px;
+    position: relative;
+    cursor: pointer;
+    color: #888;
+    background: #fafafa;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    overflow: hidden;
+    display: inline-block;
+    /*display: inline;*/
+    zoom: 1
+}
+
+.file  input {
+    position: absolute;
+    font-size: 100px;
+    right: 0;
+    top: 0;
+    opacity: 0;
+    filter: alpha(opacity=0);
+    cursor: pointer
+}
+
+.file:hover {
+    color: #444;
+    background: #eee;
+    border-color: #ccc;
+    text-decoration: none
+}

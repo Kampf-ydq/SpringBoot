@@ -199,4 +199,87 @@ public class CaptureHolder {
             }
         }
     }
+
+    //添加构造方法
+    public CaptureHolder(){}
+
+    public CaptureHolder(int outputingMode, int count, int readTimeout, int snaplen, String filter, int interval, double meetingTimeout) {
+        this.outputingMode = outputingMode;
+        this.count = count;
+        this.readTimeout = readTimeout;
+        this.snaplen = snaplen;
+        this.filter = filter;
+        this.meetingTimeout = meetingTimeout;
+        this.interval = interval;
+    }
+
+    //添加getter、setter
+    public int getCount() {
+        return count;
+    }
+
+    public void setCount(int count) {
+        this.count = count;
+    }
+
+    public int getReadTimeout() {
+        return readTimeout;
+    }
+
+    public void setReadTimeout(int readTimeout) {
+        this.readTimeout = readTimeout;
+    }
+
+    public int getSnaplen() {
+        return snaplen;
+    }
+
+    public void setSnaplen(int snaplen) {
+        this.snaplen = snaplen;
+    }
+
+    public String getFilter() {
+        return filter;
+    }
+
+    public void setFilter(String filter) {
+        this.filter = filter;
+    }
+
+    public double getMeetingTimeout() {
+        return meetingTimeout;
+    }
+
+    public void setMeetingTimeout(double meetingTimeout) {
+        this.meetingTimeout = meetingTimeout;
+    }
+
+    public int getInterval() {
+        return interval;
+    }
+
+    public void setInterval(int interval) {
+        this.interval = interval;
+    }
+
+    public int getOutputingMode() {
+        return outputingMode;
+    }
+
+    public void setOutputingMode(int outputingMode) {
+        this.outputingMode = outputingMode;
+    }
+
+    @Override
+    public String toString() {
+        return "CaptureHolder{" +
+                "outputingMode=" + outputingMode +
+                ", count=" + count +
+                ", readTimeout=" + readTimeout +
+                ", snaplen=" + snaplen +
+                ", filter='" + filter + '\'' +
+                ", interval=" + interval +
+                ", meetingTimeout=" + meetingTimeout +
+                '}';
+    }
 }

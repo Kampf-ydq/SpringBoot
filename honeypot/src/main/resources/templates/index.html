@@ -33,6 +33,97 @@
 				</div>
 			</form>
 		</div>
+			<div style="margin-bottom:10px;"></div>
+			<div class="container panel">
+				<div class="row" style="color: #000000;">
+					<h2>The data of Features</h2>
+					<hr>
+					<table class="table table-hover">
+						<caption></caption>
+						<thead>
+						<tr>
+							<th>ip</th>
+							<th>s7NameOfPLC</th>
+							<th>s7Plant</th>
+							<th>s7Serial</th>
+							<th>s7Response</th>
+							<th>Ipwhole</th>
+							<th>OS</th>
+							<th>Opnenum</th>
+							<th>hopNum</th>
+						</tr>
+						</thead>
+						<tbody>
+						<tr>
+							<td>Tanmay</td>
+							<td>Bangalore</td>
+							<td>560001</td>
+							<td>Tanmay</td>
+							<td>Bangalore</td>
+							<td>560001</td>
+							<td>Tanmay</td>
+							<td>Bangalore</td>
+							<td>560001</td>
+						</tr>
+						<tr>
+							<td>Tanmay</td>
+							<td>Bangalore</td>
+							<td>560001</td>
+							<td>Tanmay</td>
+							<td>Bangalore</td>
+							<td>560001</td>
+							<td>Tanmay</td>
+							<td>Bangalore</td>
+							<td>560001</td>
+						</tr>
+						<tr>
+							<td>Tanmay</td>
+							<td>Bangalore</td>
+							<td>560001</td>
+							<td>Tanmay</td>
+							<td>Bangalore</td>
+							<td>560001</td>
+							<td>Tanmay</td>
+							<td>Bangalore</td>
+							<td>560001</td>
+						</tr>
+						</tbody>
+					</table>
+					<div id="datashow" style="border: 1px #000000;height: 600px;"></div>
+				</div>
+			</div>
+
 	</body>
+	<script src="js/jquery-2.1.1.js"></script>
+	<script type="text/javascript" src="js/echarts.min.js"></script>
+	<script type="text/javascript">
+		var myChart = echarts.init(document.getElementById('datashow'));
+		var option = {
+			xAxis: {
+				type: 'category',
+				data: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun']
+			},
+			yAxis: {
+				type: 'value'
+			},
+			series: [{
+				data: [120, 200, 150, 80, 70, 110, 130],
+				type: 'line',
+				symbol: 'triangle',
+				symbolSize: 20,
+				lineStyle: {
+					color: '#5470C6',
+					width: 4,
+					type: 'dashed'
+				},
+				itemStyle: {
+					borderWidth: 3,
+					borderColor: '#EE6666',
+					color: 'yellow'
+				}
+			}]
+		};
+		myChart.setOption(option);
+	</script>
 
 </html>

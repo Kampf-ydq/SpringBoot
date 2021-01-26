@@ -1,11 +1,38 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Honeypot</title>
-</head>
-<body>
-welcome to <h1>Honeypot</h1>!
+<html>
 
-</body>
+	<head>
+		<meta charset="utf-8" />
+		<title>Honeypot</title>
+		<link rel="stylesheet" href="bootstrap-3.3.7/css/bootstrap.min.css" />
+		<style>
+			.jumbotron{
+				background: url("img/bg-hero.jpg") no-repeat top center;
+				color: white;
+    			font-family: 'Myriad Pro', 'Helvetica';
+			}
+		</style>
+	</head>
+
+	<body>
+		<div style="margin-bottom:0" class="jumbotron">
+		<div class="container">
+			<i id="honeycomb" style="font-size:180px;" class="fa fa-connectdevelop fa-inverse pull-left"></i>
+			<h1>Honeypot Or Not?</h1><br>
+			<p style="font-family: '宋体';font-size: 14px;">输入ip地址，判断是蜜罐还是真的控制系统：</p><br><br>
+			<form class="bs-example bs-example-form" role="form">
+				<div class="row">
+					<div class="col-lg-6">
+						<div class="input-group">
+							<input type="text" class="form-control" placeholder="Please enter an IP...">
+							<span class="input-group-btn">
+		                        <button class="btn btn-danger" type="button">Check for Honeypot</button>
+		                    </span>
+						</div>
+					</div>
+				</div>
+			</form>
+		</div>
+	</body>
+
 </html>

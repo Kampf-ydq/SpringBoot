@@ -121,4 +121,87 @@ public class HoneyeyeInformation {
          }
      }
 
+    public void setInputingMode(int inputingMode) {
+        this.inputingMode = inputingMode;
+    }
+
+    public void setOutputingMode(int outputingMode) {
+        this.outputingMode = outputingMode;
+    }
+
+    public void setCapturerCount(int capturerCount) {
+        this.capturerCount = capturerCount;
+    }
+
+    public void setCapturerReadTimeout(int capturerReadTimeout) {
+        this.capturerReadTimeout = capturerReadTimeout;
+    }
+
+    public void setCapturerSnaplen(int capturerSnaplen) {
+        this.capturerSnaplen = capturerSnaplen;
+    }
+
+    public void setCapturerFilter(String capturerFilter) {
+        this.capturerFilter = capturerFilter;
+    }
+
+    public void setCapturerInterval(int capturerInterval) {
+        this.capturerInterval = capturerInterval;
+    }
+
+    public void setCapturerEnableAutoFind(boolean capturerEnableAutoFind) {
+        this.capturerEnableAutoFind = capturerEnableAutoFind;
+    }
+
+    public void setLoaderFilePath(String loaderFilePath) {
+        this.loaderFilePath = loaderFilePath;
+    }
+
+    public void setTransmittingGrain(int transmittingGrain) {
+        this.transmittingGrain = transmittingGrain;
+    }
+
+    public void setTransmittingTimeout(double transmittingTimeout) {
+        this.transmittingTimeout = transmittingTimeout;
+    }
+
+    public void setOutputtingGrain(int outputtingGrain) {
+        this.outputtingGrain = outputtingGrain;
+    }
+
+    public void setOutputtingTimeout(double outputtingTimeout) {
+        this.outputtingTimeout = outputtingTimeout;
+    }
+
+    public void setPluginGrain(int pluginGrain) {
+        this.pluginGrain = pluginGrain;
+    }
+
+    public void setPluginTimeout(double pluginTimeout) {
+        this.pluginTimeout = pluginTimeout;
+    }
+
+    public void setMeetingTimeout(double meetingTimeout) {
+        this.meetingTimeout = meetingTimeout;
+    }
+
+    public void setSegmentMax(int segmentMax) {
+        this.segmentMax = segmentMax;
+    }
+
+    public void setTransmittingPort(String transmittingPort) {
+        this.transmittingPort = transmittingPort;
+    }
+
+    public void setTransmittingNetAddress(String transmittingNetAddress) {
+        this.transmittingNetAddress = transmittingNetAddress;
+    }
+
+    public void setOutputtingFilePath(String outputtingFilePath) {
+        this.outputtingFilePath = outputtingFilePath;
+    }
+
+    public void setOutputtingFileName(String outputtingFileName) {
+        this.outputtingFileName = outputtingFileName;
+    }
 }

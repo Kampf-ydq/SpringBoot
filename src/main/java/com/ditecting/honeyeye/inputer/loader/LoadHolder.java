@@ -283,4 +283,73 @@ public class LoadHolder {
 
         return pcapFileHeader;
     }
+
+    //添加getter、setter
+    public String getFilePath() {
+        return filePath;
+    }
+
+    public void setFilePath(String filePath) {
+        this.filePath = filePath;
+    }
+
+    public int getSegmentMax() {
+        return segmentMax;
+    }
+
+    public void setSegmentMax(int segmentMax) {
+        this.segmentMax = segmentMax;
+    }
+
+    public int getOutputingMode() {
+        return outputingMode;
+    }
+
+    public void setOutputingMode(int outputingMode) {
+        this.outputingMode = outputingMode;
+    }
+
+    public ConvertingListener getConvertingListener() {
+        return convertingListener;
+    }
+
+    public void setConvertingListener(ConvertingListener convertingListener) {
+        this.convertingListener = convertingListener;
+    }
+
+    public TransmittingListener getTransmittingListener() {
+        return transmittingListener;
+    }
+
+    public void setTransmittingListener(TransmittingListener transmittingListener) {
+        this.transmittingListener = transmittingListener;
+    }
+
+    public OutputtingListener getOutputtingListener() {
+        return outputtingListener;
+    }
+
+    public void setOutputtingListener(OutputtingListener outputtingListener) {
+        this.outputtingListener = outputtingListener;
+    }
+
+    public HoneyeyeInformation getHoneyeyeInformation() {
+        return honeyeyeInformation;
+    }
+
+    public void setHoneyeyeInformation(HoneyeyeInformation honeyeyeInformation) {
+        this.honeyeyeInformation = honeyeyeInformation;
+    }
+
+    @Override
+    public String toString() {
+        return "LoadHolder{" +
+                "filePath='" + filePath + '\'' +
+                ", segmentMax=" + segmentMax +
+                ", outputingMode=" + outputingMode +
+                ", convertingListener=" + convertingListener +
+                ", transmittingListener=" + transmittingListener +
+                ", outputtingListener=" + outputtingListener +
+                '}';
+    }
 }

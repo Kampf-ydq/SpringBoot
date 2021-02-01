@@ -40,4 +40,47 @@ public class OutputtingListener {
         Thread thread = new Thread(storer);
         thread.start();
     }
+
+    //添加getter、setter
+    public int getOutputtingGrain() {
+        return outputtingGrain;
+    }
+
+    public void setOutputtingGrain(int outputtingGrain) {
+        this.outputtingGrain = outputtingGrain;
+    }
+
+    public int getInputingMode() {
+        return inputingMode;
+    }
+
+    public void setInputingMode(int inputingMode) {
+        this.inputingMode = inputingMode;
+    }
+
+    public String getFilePath() {
+        return filePath;
+    }
+
+    public void setFilePath(String filePath) {
+        this.filePath = filePath;
+    }
+
+    public String getFileName() {
+        return fileName;
+    }
+
+    public void setFileName(String fileName) {
+        this.fileName = fileName;
+    }
+
+    @Override
+    public String toString() {
+        return "OutputtingListener{" +
+                "outputtingGrain=" + outputtingGrain +
+                ", inputingMode=" + inputingMode +
+                ", filePath='" + filePath + '\'' +
+                ", fileName='" + fileName + '\'' +
+                '}';
+    }
 }

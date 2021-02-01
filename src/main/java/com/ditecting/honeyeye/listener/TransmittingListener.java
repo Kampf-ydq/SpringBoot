@@ -40,4 +40,47 @@ public class TransmittingListener{
         Thread thread = new Thread(transmitter);
         thread.start();
     }
+
+    //添加getter、setter
+    public int getInputingMode() {
+        return inputingMode;
+    }
+
+    public void setInputingMode(int inputingMode) {
+        this.inputingMode = inputingMode;
+    }
+
+    public int getPort() {
+        return port;
+    }
+
+    public void setPort(int port) {
+        this.port = port;
+    }
+
+    public String getNetAddress() {
+        return netAddress;
+    }
+
+    public void setNetAddress(String netAddress) {
+        this.netAddress = netAddress;
+    }
+
+    public int getTransmittingGrain() {
+        return transmittingGrain;
+    }
+
+    public void setTransmittingGrain(int transmittingGrain) {
+        this.transmittingGrain = transmittingGrain;
+    }
+
+    @Override
+    public String toString() {
+        return "TransmittingListener{" +
+                "inputingMode=" + inputingMode +
+                ", port=" + port +
+                ", netAddress='" + netAddress + '\'' +
+                ", transmittingGrain=" + transmittingGrain +
+                '}';
+    }
 }

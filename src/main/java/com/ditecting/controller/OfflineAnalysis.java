@@ -1,8 +1,11 @@
 package com.ditecting.controller;
 
-import com.ditecting.entity.HoneyResult;
-import com.ditecting.entity.Honeyeye;
+import com.ditecting.entity.*;
 import com.ditecting.honeyeye.inputer.loader.LoadHolder;
+import com.ditecting.honeyeye.listener.ConvertingListener;
+import com.ditecting.honeyeye.listener.OutputtingListener;
+import com.ditecting.honeyeye.listener.TransmittingListener;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
@@ -18,10 +21,18 @@ import java.util.UUID;
 @Controller
 public class OfflineAnalysis {
 
-    private String loadFilePath;
+    @Autowired
+    LoadHolder loadHolder;
 
-    @RequestMapping(value = "/fileUpload")
-    public void fileupload(@RequestParam(value = "file") MultipartFile file){
+    //文件上传成功之后的文件名路径
+    private String filePathOfLoad = "";
+
+    @RequestMapping(value = "/fileUpload", method = RequestMethod.POST)
+    @ResponseBody
+    public HoneyResult fileupload(@RequestParam(value = "file", required = false) MultipartFile file){
+        if (file.isEmpty()){
+            return HoneyResult.build(500, "文件不能为空", null);
+        }
 
         // 获取文件的原文件名
         String oldName = file.getOriginalFilename();
@@ -41,18 +52,61 @@ public class OfflineAnalysis {
             try {
                 // 文件写入
                 file.transferTo(dest);
-                // 缓存 文件上传成功之后的文件名路径
-                loadFilePath = filePath;
+                filePathOfLoad = filePath;
             } catch (Exception e) {
                 e.printStackTrace();
             }
         }
+        return HoneyResult.ok();
     }
 
     @RequestMapping(value = "/offline", method = RequestMethod.POST)
+    @ResponseBody
     public HoneyResult offlineAly(@RequestBody Honeyeye honeyeye){
         System.out.println(honeyeye);
-        System.out.println(loadFilePath);
+
+        //配置参数
+        SystemMode sys = honeyeye.getSystem();
+        Listener listener = honeyeye.getListener();
+        Outputer outputer = honeyeye.getOutputer();
+
+        loadHolder.setFilePath(filePathOfLoad);
+        loadHolder.setSegmentMax(listener.getSegmentMax());
+        loadHolder.setOutputingMode(sys.getOutputingMode());
+
+        ConvertingListener cl = new ConvertingListener();
+        cl.setTransmittingGrain(listener.getTransmittingGrain());
+        cl.setTransmittingTimeout(listener.getTransmittingTimeout());
+        cl.setOutputtingGrain(listener.getOutputtingGrain());
+        cl.setOutputtingTimeout(listener.getOutputtingTimeout());
+        cl.setPluginGrain(listener.getPluginGrain());
+        cl.setPluginTimeout(listener.getPluginTimeout());
+        cl.setInputingMode(2); //输入模式设置为离线解析
+        cl.setOutputingMode(sys.getOutputingMode());
+        loadHolder.setConvertingListener(cl);
+
+        TransmittingListener tl = new TransmittingListener();
+        tl.setInputingMode(2);
+        tl.setPort(listener.getTransmittingListener().getPort());
+        tl.setNetAddress(listener.getTransmittingListener().getNetAddress());
+        tl.setTransmittingGrain(listener.getTransmittingGrain());
+        loadHolder.setTransmittingListener(tl);
+
+        OutputtingListener ol = new OutputtingListener();
+        ol.setOutputtingGrain(listener.getOutputtingGrain());
+        ol.setInputingMode(2);
+        ol.setFilePath(outputer.getFilePath());
+        ol.setFileName(outputer.getFileName());
+        loadHolder.setOutputtingListener(ol);
+
+        System.out.println(loadHolder);
+
+        try{
+            loadHolder.load();
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+
         return HoneyResult.ok();
     }
 

@@ -17,7 +17,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
  */
 @Slf4j
 @SpringBootApplication
-public class HoneyeyeApplication {
+/*public class HoneyeyeApplication {
 
     @Value("${honeyeye.system.inputingMode}")
     private int inputingMode;// 1:capture, 2:load
@@ -31,9 +31,9 @@ public class HoneyeyeApplication {
     public static void main(String[] args) {
         SpringApplication.run(HoneyeyeApplication.class, args);
     }
-}
+}*/
 
-/*public class HoneyeyeApplication implements CommandLineRunner {
+public class HoneyeyeApplication implements CommandLineRunner {
 
     @Value("${honeyeye.system.inputingMode}")
     private int inputingMode;// 1:capture, 2:load
@@ -59,4 +59,4 @@ public class HoneyeyeApplication {
             default:
         }
 	}
-}*/
+}

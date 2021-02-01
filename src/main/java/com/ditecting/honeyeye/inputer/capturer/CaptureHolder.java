@@ -200,19 +200,6 @@ public class CaptureHolder {
         }
     }
 
-    //添加构造方法
-    public CaptureHolder(){}
-
-    public CaptureHolder(int outputingMode, int count, int readTimeout, int snaplen, String filter, int interval, double meetingTimeout) {
-        this.outputingMode = outputingMode;
-        this.count = count;
-        this.readTimeout = readTimeout;
-        this.snaplen = snaplen;
-        this.filter = filter;
-        this.meetingTimeout = meetingTimeout;
-        this.interval = interval;
-    }
-
     //添加getter、setter
     public int getCount() {
         return count;

@@ -15,18 +15,18 @@ pcap4j:
 
 honeyeye:
   system:
-    inputingMode: 1 # 1:capture, 2:load
+    inputingMode: 2 # 1:capture, 2:load
     outputingMode: 2 # others:plugin, 1:transmission, 2:storage, 3: transmission and storage
   inputer:
     capturer:
       count: -1
       readTimeout: 60
       snaplen: 65536
-      filter: tcp port 443 and (dst 192.168.0.1 or src 192.168.0.1)
+      filter: #tcp port 80 and (dst 192.168.0.100 or src 192.168.0.100)
       interval: 2
       enableAutoFind: true
     loader:
-      filePath: "G:\\NETSC\\tanZhen\\honeynet\\Modbus_dataset\\characterization_modbus_6RTU_with_operate.pcap"
+      filePath: "G:\\NETSC\\tanZhen\\honeynet\\Modbus_dataset\\run8.pcap"
   listener:
     transmittingGrain: 0 # others:rawPacket, 1:packet, 2:flow, 3:session
     transmittingTimeout: 1  # in [s]
@@ -34,11 +34,11 @@ honeyeye:
     outputtingTimeout: 5  # in [s]
     pluginGrain: 0 # others:rawPacket, 1:packet, 2:flow, 3:session
     pluginTimeout: 1  # in [s]
-    meetingTimeout: 100000000000000000  # in [s]
+    meetingTimeout: 10 # in [s]
     segmentMax: 10000
     transmittingListener:
       port: 5150
       netAddress:  192.168.0.1
   outputer:
     filePath: "G:\\NETSC\\tanZhen\\honeynet\\storage\\"
-    fileName: "test"
+    fileName: "th"

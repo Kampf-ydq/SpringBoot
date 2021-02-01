@@ -80,4 +80,83 @@ public class ConvertingListener {
                 log.warn("No Transmitter or Outputer is started.");
         }
     }
+
+    //添加getter、setter
+    public int getTransmittingGrain() {
+        return transmittingGrain;
+    }
+
+    public void setTransmittingGrain(int transmittingGrain) {
+        this.transmittingGrain = transmittingGrain;
+    }
+
+    public double getTransmittingTimeout() {
+        return transmittingTimeout;
+    }
+
+    public void setTransmittingTimeout(double transmittingTimeout) {
+        this.transmittingTimeout = transmittingTimeout;
+    }
+
+    public int getOutputtingGrain() {
+        return outputtingGrain;
+    }
+
+    public void setOutputtingGrain(int outputtingGrain) {
+        this.outputtingGrain = outputtingGrain;
+    }
+
+    public double getOutputtingTimeout() {
+        return outputtingTimeout;
+    }
+
+    public void setOutputtingTimeout(double outputtingTimeout) {
+        this.outputtingTimeout = outputtingTimeout;
+    }
+
+    public int getPluginGrain() {
+        return pluginGrain;
+    }
+
+    public void setPluginGrain(int pluginGrain) {
+        this.pluginGrain = pluginGrain;
+    }
+
+    public double getPluginTimeout() {
+        return pluginTimeout;
+    }
+
+    public void setPluginTimeout(double pluginTimeout) {
+        this.pluginTimeout = pluginTimeout;
+    }
+
+    public int getInputingMode() {
+        return inputingMode;
+    }
+
+    public void setInputingMode(int inputingMode) {
+        this.inputingMode = inputingMode;
+    }
+
+    public int getOutputingMode() {
+        return outputingMode;
+    }
+
+    public void setOutputingMode(int outputingMode) {
+        this.outputingMode = outputingMode;
+    }
+
+    @Override
+    public String toString() {
+        return "ConvertingListener{" +
+                "transmittingGrain=" + transmittingGrain +
+                ", transmittingTimeout=" + transmittingTimeout +
+                ", outputtingGrain=" + outputtingGrain +
+                ", outputtingTimeout=" + outputtingTimeout +
+                ", pluginGrain=" + pluginGrain +
+                ", pluginTimeout=" + pluginTimeout +
+                ", inputingMode=" + inputingMode +
+                ", outputingMode=" + outputingMode +
+                '}';
+    }
 }

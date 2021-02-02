@@ -1,4 +1,4 @@
-#thymelea模板配置
+#thymeleaf模板配置
 spring.thymeleaf.prefix: classpath:/templates/
 spring.thymeleaf.suffix: .html
 spring.thymeleaf.mode: HTML5
@@ -26,7 +26,7 @@ honeyeye:
       interval: 2
       enableAutoFind: true
     loader:
-      filePath: "G:\\NETSC\\tanZhen\\honeynet\\Modbus_dataset\\run8.pcap"
+      filePath: "G:\\NETSC\\tanZhen\\honeynet\\Modbus_dataset\\run11.pcap"
   listener:
     transmittingGrain: 0 # others:rawPacket, 1:packet, 2:flow, 3:session
     transmittingTimeout: 1  # in [s]
@@ -41,4 +41,11 @@ honeyeye:
       netAddress:  192.168.0.1
   outputer:
     filePath: "G:\\NETSC\\tanZhen\\honeynet\\storage\\"
-    fileName: "th"
+    fileName: "th1"
+
+#不限制文件上传的大小
+spring:
+  servlet:
+    multipart:
+      max-file-size: -1
+      max-request-size: -1

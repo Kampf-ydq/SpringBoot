@@ -132,4 +132,20 @@ public class InputCachePool {
         waitingMeeting = null;
         incompleteWaitingFullPacketList = null;
     }
+
+    public void setMeetingTimeout(double meetingTimeout) {
+        this.meetingTimeout = meetingTimeout;
+    }
+
+    public void setSegmentMax(int segmentMax) {
+        this.segmentMax = segmentMax;
+    }
+
+    @Override
+    public String toString() {
+        return "InputCachePool{" +
+                "meetingTimeout=" + meetingTimeout +
+                ", segmentMax=" + segmentMax +
+                '}';
+    }
 }

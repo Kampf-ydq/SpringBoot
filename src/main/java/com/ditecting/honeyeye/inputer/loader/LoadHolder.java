@@ -309,6 +309,14 @@ public class LoadHolder {
         this.outputingMode = outputingMode;
     }
 
+    public LoadingListener getLoadingListener() {
+        return loadingListener;
+    }
+
+    public void setLoadingListener(LoadingListener loadingListener) {
+        this.loadingListener = loadingListener;
+    }
+
     public ConvertingListener getConvertingListener() {
         return convertingListener;
     }
@@ -333,6 +341,14 @@ public class LoadHolder {
         this.outputtingListener = outputtingListener;
     }
 
+    public InputCachePool getInputCachePool() {
+        return inputCachePool;
+    }
+
+    public void setInputCachePool(InputCachePool inputCachePool) {
+        this.inputCachePool = inputCachePool;
+    }
+
     public HoneyeyeInformation getHoneyeyeInformation() {
         return honeyeyeInformation;
     }
@@ -347,9 +363,12 @@ public class LoadHolder {
                 "filePath='" + filePath + '\'' +
                 ", segmentMax=" + segmentMax +
                 ", outputingMode=" + outputingMode +
+                ", loadingListener=" + loadingListener +
                 ", convertingListener=" + convertingListener +
                 ", transmittingListener=" + transmittingListener +
                 ", outputtingListener=" + outputtingListener +
+                ", inputCachePool=" + inputCachePool +
+                ", honeyeyeInformation=" + honeyeyeInformation +
                 '}';
     }
 }

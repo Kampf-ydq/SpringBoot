@@ -65,7 +65,7 @@
             <div class="halfrow">
                 <label class="sublabel">传输超时：</label>
                 <div class="input-group2">
-                    <input name="transmittingTimeout" type="text" class="form-control shortform" placeholder="10" aria-describedby="basic-addon2">
+                    <input name="transmittingTimeout" type="text" class="form-control shortform" placeholder="1" aria-describedby="basic-addon2">
                     <span class="input-group-addon">秒</span>
                 </div>
             </div>
@@ -76,14 +76,14 @@
                 <select class="form-control" id="outputtingGrain">
                     <option>0 原始数据包</option>
                     <option>1 包</option>
-                    <option>2 流</option>
+                    <option selected>2 流</option>
                     <option>3 会话</option>
                 </select>
             </div>
             <div class="halfrow">
                 <label class="sublabel">输出超时：</label>
                 <div class="input-group2">
-                    <input name="outputtingTimeout" type="text" class="form-control shortform" placeholder="10" aria-describedby="basic-addon2">
+                    <input name="outputtingTimeout" type="text" class="form-control shortform" placeholder="5" aria-describedby="basic-addon2">
                     <span class="input-group-addon">秒</span>
                 </div>
             </div>
@@ -92,8 +92,8 @@
             <div class="halfrow">
                 <label class="sublabel">插件形式：</label>
                 <select class="form-control" id="pluginGrain">
-                    <option>0 原始数据包</option>
-                    <option selected>1 包</option>
+                    <option selected>0 原始数据包</option>
+                    <option>1 包</option>
                     <option>2 流</option>
                     <option>3 会话</option>
                 </select>
@@ -109,7 +109,7 @@
         <div class="rowform">
             <label class="sublabel">meeting超时：</label>
 
-            <input name="meetingTimeout" type="text" class="form-control longform" placeholder="100000000000000000" aria-describedby="basic-addon2">
+            <input name="meetingTimeout" type="text" class="form-control longform" placeholder="10" aria-describedby="basic-addon2">
             <span class="input-group-addon">秒</span>
         </div>
         <div class="rowform">
@@ -137,7 +137,7 @@
         </div>
         <div class="rowform">
             <label class="sublabel2">文件路径：</label>
-            <input name="filePath" type="text" class="form-control longform" placeholder="C:\\Users\\18809\\Desktop\\Honeyeye" aria-describedby="basic-addon2">
+            <input name="filePath" type="text" class="form-control longform" placeholder="G:\\NETSC\\tanZhen\\honeynet\\storage\\" aria-describedby="basic-addon2">
             <!--            <span class="input-group-addon">秒</span>-->
         </div>
         <div class="rowform">
@@ -177,36 +177,7 @@
 <script type="text/javascript" src="../js/jquery-3.5.1.min.js"></script>
 <script type="text/javascript" src="js/ajaxfileupload.js"></script>
 <script type="text/javascript">
-
-    /*$(document).ready(function(e) {
-        $('body').on('change',$('#ImportPicInput'),function(){
-            $( "#importPicName").val($( "#ImportPicInput").val());
-        });
-    });*/
-
-    //加载文件
-    /*var formData = new FormData();
-    formData.append("file", document.getElementById("upload-file").files[0]);
-    console.log($("#upload-file")[0].val());*/
     $("#load-file").click(function () {
-        /*$.ajax({
-            type: "post",
-            url: "http://localhost:8080/fileUpload",
-            data: formData,
-            contentType:false,
-            processData:false,//这个很有必要，不然不行
-            dataType:"json",
-            mimeType:"multipart/form-data",
-            success:function(res){
-                if(200==res.code){
-                    alert("保存成功!" + res.data);
-                    return;
-                }else{
-                    alert("保存失败!" + res.data);
-                    return;
-                }
-            }
-        });*/
         $.ajaxFileUpload({
             type: "POST",
             url: "http://localhost:8080/fileUpload",

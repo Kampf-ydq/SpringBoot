@@ -42,4 +42,14 @@ public class LoadingListener implements FullPacketListener {
     @Override
     public void gotPacket (Packet packet) {}
 
+    public void setInputCachePool(InputCachePool inputCachePool) {
+        this.inputCachePool = inputCachePool;
+    }
+
+    @Override
+    public String toString() {
+        return "LoadingListener{" +
+                "inputCachePool=" + inputCachePool +
+                '}';
+    }
 }

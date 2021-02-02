@@ -1,8 +1,10 @@
 package com.ditecting.controller;
 
 import com.ditecting.entity.*;
+import com.ditecting.honeyeye.cachepool.InputCachePool;
 import com.ditecting.honeyeye.inputer.loader.LoadHolder;
 import com.ditecting.honeyeye.listener.ConvertingListener;
+import com.ditecting.honeyeye.listener.LoadingListener;
 import com.ditecting.honeyeye.listener.OutputtingListener;
 import com.ditecting.honeyeye.listener.TransmittingListener;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,11 +23,29 @@ import java.util.UUID;
 @Controller
 public class OfflineAnalysis {
 
-    @Autowired
-    LoadHolder loadHolder;
-
     //文件上传成功之后的文件名路径
     private String filePathOfLoad = "";
+
+    /***
+     *底层参数注入
+     */
+    @Autowired
+    private InputCachePool icp;
+
+    @Autowired
+    private LoadingListener ll;
+
+    @Autowired
+    private ConvertingListener cl;
+
+    @Autowired
+    private TransmittingListener tl;
+
+    @Autowired
+    private OutputtingListener ol;
+
+    @Autowired
+    LoadHolder loadHolder;
 
     @RequestMapping(value = "/fileUpload", method = RequestMethod.POST)
     @ResponseBody
@@ -74,7 +94,19 @@ public class OfflineAnalysis {
         loadHolder.setSegmentMax(listener.getSegmentMax());
         loadHolder.setOutputingMode(sys.getOutputingMode());
 
-        ConvertingListener cl = new ConvertingListener();
+        /*=====================================*\
+        *=    不能重新new对象，必须要注入底层对象  =*
+         *======================================*/
+        //InputCachePool icp = new InputCachePool();
+        icp.setMeetingTimeout(listener.getMeetingTimeout());
+        icp.setSegmentMax(listener.getSegmentMax());
+        loadHolder.setInputCachePool(icp);
+
+        //LoadingListener ll = new LoadingListener();
+        ll.setInputCachePool(icp);
+        loadHolder.setLoadingListener(ll);
+
+        //ConvertingListener cl = new ConvertingListener();
         cl.setTransmittingGrain(listener.getTransmittingGrain());
         cl.setTransmittingTimeout(listener.getTransmittingTimeout());
         cl.setOutputtingGrain(listener.getOutputtingGrain());
@@ -85,14 +117,14 @@ public class OfflineAnalysis {
         cl.setOutputingMode(sys.getOutputingMode());
         loadHolder.setConvertingListener(cl);
 
-        TransmittingListener tl = new TransmittingListener();
+        //TransmittingListener tl = new TransmittingListener();
         tl.setInputingMode(2);
         tl.setPort(listener.getTransmittingListener().getPort());
         tl.setNetAddress(listener.getTransmittingListener().getNetAddress());
         tl.setTransmittingGrain(listener.getTransmittingGrain());
         loadHolder.setTransmittingListener(tl);
 
-        OutputtingListener ol = new OutputtingListener();
+        //OutputtingListener ol = new OutputtingListener();
         ol.setOutputtingGrain(listener.getOutputtingGrain());
         ol.setInputingMode(2);
         ol.setFilePath(outputer.getFilePath());

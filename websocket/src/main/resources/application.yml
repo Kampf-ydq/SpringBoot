@@ -1,0 +1,14 @@
+server:
+ port: 8086
+
+spring:
+ application:
+  name: websocket-demo
+ thymeleaf:
+  prefix: classpath:/templates/
+
+# 日志配置
+logging:
+ file:
+  path: G:\Cybersecurity\workSpace\Jetbrains\websocket #日志文件名称
+  name: honeyeye.log

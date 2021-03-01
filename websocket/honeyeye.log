@@ -1,0 +1,75 @@
+2021-02-28 12:40:26.018  INFO 5520 --- [main] com.neu.WebsocketApplication             : Starting WebsocketApplication using Java 1.8.0_112 on 杨小道 with PID 5520 (G:\Cybersecurity\workSpace\Jetbrains\websocket\target\classes started by SpaceX in G:\Cybersecurity\workSpace\Jetbrains\websocket)
+2021-02-28 12:40:26.021  INFO 5520 --- [main] com.neu.WebsocketApplication             : No active profile set, falling back to default profiles: default
+2021-02-28 12:40:26.997  INFO 5520 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 8086 (http)
+2021-02-28 12:40:27.012  INFO 5520 --- [main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2021-02-28 12:40:27.013  INFO 5520 --- [main] org.apache.catalina.core.StandardEngine  : Starting Servlet engine: [Apache Tomcat/9.0.41]
+2021-02-28 12:40:27.143  INFO 5520 --- [main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2021-02-28 12:40:27.143  INFO 5520 --- [main] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 1077 ms
+2021-02-28 12:40:27.205  INFO 5520 --- [main] c.neu.websocket.config.WebSocketConfig   : 启动 WebSocket ...
+2021-02-28 12:40:27.325  INFO 5520 --- [main] o.s.s.concurrent.ThreadPoolTaskExecutor  : Initializing ExecutorService 'applicationTaskExecutor'
+2021-02-28 12:40:27.523  INFO 5520 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 8086 (http) with context path ''
+2021-02-28 12:40:27.533  INFO 5520 --- [main] com.neu.WebsocketApplication             : Started WebsocketApplication in 2.18 seconds (JVM running for 3.088)
+2021-02-28 12:40:59.569  INFO 5520 --- [http-nio-8086-exec-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2021-02-28 12:40:59.570  INFO 5520 --- [http-nio-8086-exec-1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2021-02-28 12:40:59.571  INFO 5520 --- [http-nio-8086-exec-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 1 ms
+2021-02-28 12:41:00.222  INFO 5520 --- [Thread-8] c.neu.websocket.service.WebSocketServer  : LoggingWebSocketServer 服务启动
+2021-02-28 12:41:10.899  INFO 5520 --- [Thread-10] c.neu.websocket.service.WebSocketServer  : LoggingWebSocketServer 服务启动
+2021-02-28 12:41:11.251  INFO 5520 --- [Thread-8] c.neu.websocket.service.WebSocketServer  : LoggingWebSocketServer 服务结束
+2021-02-28 12:41:22.948  INFO 5520 --- [Thread-12] c.neu.websocket.service.WebSocketServer  : LoggingWebSocketServer 服务启动
+2021-02-28 12:41:23.921  INFO 5520 --- [Thread-10] c.neu.websocket.service.WebSocketServer  : LoggingWebSocketServer 服务结束
+2021-02-28 12:41:24.664  INFO 5520 --- [Thread-14] c.neu.websocket.service.WebSocketServer  : LoggingWebSocketServer 服务启动
+2021-02-28 12:41:24.956  INFO 5520 --- [Thread-12] c.neu.websocket.service.WebSocketServer  : LoggingWebSocketServer 服务结束
+2021-02-28 12:41:25.181  INFO 5520 --- [Thread-16] c.neu.websocket.service.WebSocketServer  : LoggingWebSocketServer 服务启动
+2021-02-28 12:41:25.592  INFO 5520 --- [Thread-18] c.neu.websocket.service.WebSocketServer  : LoggingWebSocketServer 服务启动
+2021-02-28 12:41:25.667  INFO 5520 --- [Thread-14] c.neu.websocket.service.WebSocketServer  : LoggingWebSocketServer 服务结束
+2021-02-28 12:41:25.798  INFO 5520 --- [Thread-20] c.neu.websocket.service.WebSocketServer  : LoggingWebSocketServer 服务启动
+2021-02-28 12:41:25.985  INFO 5520 --- [Thread-22] c.neu.websocket.service.WebSocketServer  : LoggingWebSocketServer 服务启动
+2021-02-28 12:41:26.170  INFO 5520 --- [Thread-24] c.neu.websocket.service.WebSocketServer  : LoggingWebSocketServer 服务启动
+2021-02-28 12:41:26.184  INFO 5520 --- [Thread-16] c.neu.websocket.service.WebSocketServer  : LoggingWebSocketServer 服务结束
+2021-02-28 12:41:26.350  INFO 5520 --- [Thread-26] c.neu.websocket.service.WebSocketServer  : LoggingWebSocketServer 服务启动
+2021-02-28 12:41:26.527  INFO 5520 --- [Thread-28] c.neu.websocket.service.WebSocketServer  : LoggingWebSocketServer 服务启动
+2021-02-28 12:41:26.597  INFO 5520 --- [Thread-18] c.neu.websocket.service.WebSocketServer  : LoggingWebSocketServer 服务结束
+2021-02-28 12:41:26.800  INFO 5520 --- [Thread-20] c.neu.websocket.service.WebSocketServer  : LoggingWebSocketServer 服务结束
+2021-02-28 12:41:26.865  INFO 5520 --- [Thread-30] c.neu.websocket.service.WebSocketServer  : LoggingWebSocketServer 服务启动
+2021-02-28 12:41:26.990  INFO 5520 --- [Thread-22] c.neu.websocket.service.WebSocketServer  : LoggingWebSocketServer 服务结束
+2021-02-28 12:41:27.069  INFO 5520 --- [Thread-32] c.neu.websocket.service.WebSocketServer  : LoggingWebSocketServer 服务启动
+2021-02-28 12:41:27.175  INFO 5520 --- [Thread-24] c.neu.websocket.service.WebSocketServer  : LoggingWebSocketServer 服务结束
+2021-02-28 12:41:27.352  INFO 5520 --- [Thread-26] c.neu.websocket.service.WebSocketServer  : LoggingWebSocketServer 服务结束
+2021-02-28 12:41:27.414  INFO 5520 --- [Thread-34] c.neu.websocket.service.WebSocketServer  : LoggingWebSocketServer 服务启动
+2021-02-28 12:41:27.530  INFO 5520 --- [Thread-28] c.neu.websocket.service.WebSocketServer  : LoggingWebSocketServer 服务结束
+2021-02-28 12:41:27.625  INFO 5520 --- [Thread-36] c.neu.websocket.service.WebSocketServer  : LoggingWebSocketServer 服务启动
+2021-02-28 12:41:27.832  INFO 5520 --- [Thread-38] c.neu.websocket.service.WebSocketServer  : LoggingWebSocketServer 服务启动
+2021-02-28 12:41:27.868  INFO 5520 --- [Thread-30] c.neu.websocket.service.WebSocketServer  : LoggingWebSocketServer 服务结束
+2021-02-28 12:41:28.032  INFO 5520 --- [Thread-40] c.neu.websocket.service.WebSocketServer  : LoggingWebSocketServer 服务启动
+2021-02-28 12:41:28.075  INFO 5520 --- [Thread-32] c.neu.websocket.service.WebSocketServer  : LoggingWebSocketServer 服务结束
+2021-02-28 12:41:28.242  INFO 5520 --- [Thread-42] c.neu.websocket.service.WebSocketServer  : LoggingWebSocketServer 服务启动
+2021-02-28 12:41:28.417  INFO 5520 --- [Thread-34] c.neu.websocket.service.WebSocketServer  : LoggingWebSocketServer 服务结束
+2021-02-28 12:41:28.441  INFO 5520 --- [Thread-44] c.neu.websocket.service.WebSocketServer  : LoggingWebSocketServer 服务启动
+2021-02-28 12:41:28.629  INFO 5520 --- [Thread-36] c.neu.websocket.service.WebSocketServer  : LoggingWebSocketServer 服务结束
+2021-02-28 12:41:28.647  INFO 5520 --- [Thread-46] c.neu.websocket.service.WebSocketServer  : LoggingWebSocketServer 服务启动
+2021-02-28 12:41:28.835  INFO 5520 --- [Thread-38] c.neu.websocket.service.WebSocketServer  : LoggingWebSocketServer 服务结束
+2021-02-28 12:41:28.863  INFO 5520 --- [Thread-48] c.neu.websocket.service.WebSocketServer  : LoggingWebSocketServer 服务启动
+2021-02-28 12:41:29.036  INFO 5520 --- [Thread-40] c.neu.websocket.service.WebSocketServer  : LoggingWebSocketServer 服务结束
+2021-02-28 12:41:29.173  INFO 5520 --- [Thread-50] c.neu.websocket.service.WebSocketServer  : LoggingWebSocketServer 服务启动
+2021-02-28 12:41:29.247  INFO 5520 --- [Thread-42] c.neu.websocket.service.WebSocketServer  : LoggingWebSocketServer 服务结束
+2021-02-28 12:41:29.445  INFO 5520 --- [Thread-44] c.neu.websocket.service.WebSocketServer  : LoggingWebSocketServer 服务结束
+2021-02-28 12:41:29.649  INFO 5520 --- [Thread-46] c.neu.websocket.service.WebSocketServer  : LoggingWebSocketServer 服务结束
+2021-02-28 12:41:29.865  INFO 5520 --- [Thread-48] c.neu.websocket.service.WebSocketServer  : LoggingWebSocketServer 服务结束
+2021-02-28 12:41:36.752  INFO 5520 --- [Thread-52] c.neu.websocket.service.WebSocketServer  : LoggingWebSocketServer 服务启动
+2021-02-28 12:41:37.187  INFO 5520 --- [Thread-50] c.neu.websocket.service.WebSocketServer  : LoggingWebSocketServer 服务结束
+2021-02-28 12:41:37.350  INFO 5520 --- [Thread-54] c.neu.websocket.service.WebSocketServer  : LoggingWebSocketServer 服务启动
+2021-02-28 12:41:37.757  INFO 5520 --- [Thread-52] c.neu.websocket.service.WebSocketServer  : LoggingWebSocketServer 服务结束
+2021-02-28 12:41:37.874  INFO 5520 --- [Thread-56] c.neu.websocket.service.WebSocketServer  : LoggingWebSocketServer 服务启动
+2021-02-28 12:41:38.354  INFO 5520 --- [Thread-54] c.neu.websocket.service.WebSocketServer  : LoggingWebSocketServer 服务结束
+2021-02-28 12:41:43.742  INFO 5520 --- [Thread-58] c.neu.websocket.service.WebSocketServer  : LoggingWebSocketServer 服务启动
+2021-02-28 12:41:43.884  INFO 5520 --- [Thread-56] c.neu.websocket.service.WebSocketServer  : LoggingWebSocketServer 服务结束
+2021-02-28 12:41:55.080  INFO 5520 --- [Thread-60] c.neu.websocket.service.WebSocketServer  : LoggingWebSocketServer 服务启动
+2021-02-28 12:41:55.762  INFO 5520 --- [Thread-58] c.neu.websocket.service.WebSocketServer  : LoggingWebSocketServer 服务结束
+2021-02-28 12:41:56.342  INFO 5520 --- [Thread-62] c.neu.websocket.service.WebSocketServer  : LoggingWebSocketServer 服务启动
+2021-02-28 12:41:57.086  INFO 5520 --- [Thread-60] c.neu.websocket.service.WebSocketServer  : LoggingWebSocketServer 服务结束
+2021-02-28 12:42:00.719  INFO 5520 --- [Thread-64] c.neu.websocket.service.WebSocketServer  : LoggingWebSocketServer 服务启动
+2021-02-28 12:42:01.348  INFO 5520 --- [Thread-62] c.neu.websocket.service.WebSocketServer  : LoggingWebSocketServer 服务结束
+2021-02-28 12:42:08.573  INFO 5520 --- [Thread-66] c.neu.websocket.service.WebSocketServer  : LoggingWebSocketServer 服务启动
+2021-02-28 12:42:08.733  INFO 5520 --- [Thread-64] c.neu.websocket.service.WebSocketServer  : LoggingWebSocketServer 服务结束
+2021-02-28 12:43:16.604  INFO 5520 --- [Thread-68] c.neu.websocket.service.WebSocketServer  : LoggingWebSocketServer 服务启动
+2021-02-28 12:43:16.670  INFO 5520 --- [Thread-66] c.neu.websocket.service.WebSocketServer  : LoggingWebSocketServer 服务结束

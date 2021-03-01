@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration scan="true">
+    <include resource="org/springframework/boot/logging/logback/defaults.xml" />
+    <property name="LOG_FILE"
+              value="${LOG_FILE:-${LOG_PATH:-${LOG_TEMP:-${java.io.tmpdir:-/tmp}}/}spring.log}" />
+    <include resource="org/springframework/boot/logging/logback/file-appender.xml" />
+    <appender name="CONSOLE" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder>
+            <pattern>${CONSOLE_LOG_PATTERN}</pattern>
+            <charset>utf8</charset>
+        </encoder>
+    </appender>
+    <appender name="WEBSOCKET" class="com.neu.websocket.config.WebsocketAppender">
+    </appender>
+    <root level="INFO">
+        <appender-ref ref="WEBSOCKET" />
+        <appender-ref ref="CONSOLE" />
+    </root>
+</configuration>

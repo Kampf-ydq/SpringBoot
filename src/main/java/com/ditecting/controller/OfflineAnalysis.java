@@ -131,7 +131,7 @@ public class OfflineAnalysis {
         ol.setFileName(outputer.getFileName());
         loadHolder.setOutputtingListener(ol);
 
-        System.out.println(loadHolder);
+        //System.out.println(loadHolder);
 
         try{
             loadHolder.load();

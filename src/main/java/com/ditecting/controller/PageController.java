@@ -9,14 +9,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @Controller
 public class PageController {
     @RequestMapping("/")
-    public String page(){
+    public String getMain(){
         return "main";
     }
-
-    /*@RequestMapping("/main")
-    public String getMainPage(){
-        return "s";
-    }*/
 
     @RequestMapping("/monitorPage")
     public String getMonitor(){
@@ -24,7 +19,7 @@ public class PageController {
     }
 
     @RequestMapping("/onlinePage")
-    public String test(){
+    public String getOnline(){
         return "online";
     }
 

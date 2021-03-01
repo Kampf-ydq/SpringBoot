@@ -1,13 +1,13 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <title>离线分析</title>
     <script src="../js/jquery-3.5.1.min.js"></script>
     <script src="../js/bootstrap-3.3.7-dist/js/bootstrap.min.js"></script>
     <link rel="stylesheet" href="../js/bootstrap-3.3.7-dist/css/bootstrap.min.css">
-    <link rel="stylesheet" href="../css/common.css">
-    <link rel="stylesheet" href="../css/config.css">
+    <link rel="stylesheet" href="/css/common.css">
+    <link rel="stylesheet" href="/css/config.css">
     <script src="../js/switch.js"></script>
     <link href="https://cdn.bootcss.com/bootstrap-switch/3.3.4/css/bootstrap3/bootstrap-switch.min.css" rel="stylesheet"><script src="https://cdn.bootcss.com/jquery/1.11.1/jquery.min.js"></script>
     <script src="https://cdn.bootcss.com/bootstrap-switch/3.3.4/js/bootstrap-switch.min.js"></script>
@@ -16,14 +16,10 @@
 <div id="container4">
     <!--    <div id="container1">-->
 
-    <div class="headrow">请选择待解析的文件：</div>
+    <div class="headrow">请上传待解析的文件：</div>
 
-    <!--        <label id="lable-upload">请选择上传的文件：</label>-->
-
-    <!--AJAX文件上传上传测试-->
-    <!--<input id="upload-file" name="file" class="file-loading" type="file" multiple="multiple">-->
-
-    <input id="upload-file-id" type="file" name="file" class="file-loading">
+    <input id="upload-file-id" type="file" name="file" class="file">
+    <br>
     <button id="load-file" type="button" class="btn btn-info">点击上传</button>
 
     <!--<input type ="file" id="ImportPicInput" name= "file" style=" display: none" />
@@ -138,8 +134,8 @@
         <div class="rowform">
             <label class="sublabel2">文件路径：</label>
             <input name="filePath" type="text" class="form-control longform" placeholder="G:\\NETSC\\tanZhen\\honeynet\\storage\\" aria-describedby="basic-addon2">
-            <!--            <span class="input-group-addon">秒</span>-->
         </div>
+
         <div class="rowform">
             <div class="halfrow">
                 <!--                <label class="sublabel">过滤器：</label>-->
@@ -167,8 +163,69 @@
             </div>
         </div>
         <div class="halfrow">
-            <!--<span class="input-group-addon" id="basic-addon3">秒</span>-->
-            <button id="offline-alnaysis" type="button" class="btn btn-info">开始</button>
+            <!--模态框展示控制台日志-->
+            <button id="offline-alnaysis" type="button" class="btn btn-info" data-toggle="modal" data-target="#logbackModal">开始</button>
+            <!-- 模态框（Modal） -->
+            <div class="modal fade" id="logbackModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" data-backdrop="static" data-keyboard="false">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                            <h4 class="modal-title" id="myModalLabel">Console</h4>
+                        </div>
+                        <div class="modal-body">
+                            <!-- 显示区 -->
+                            <div id="loggingText" contenteditable="true" style="width:100%;height: 600px; overflow: auto;font-family: Consolas;overflow:scroll;"></div>
+
+                            <!--使用WebSocket实现后端控制台信息回传前端-->
+                            <script th:inline="javascript">
+                                //websocket对象
+                                let websocket = null;
+
+                                //判断当前浏览器是否支持WebSocket
+                                if ('WebSocket' in window) {
+                                    websocket = new WebSocket("ws://localhost:8080/websocket");
+                                } else {
+                                    console.error("不支持WebSocket");
+                                }
+
+                                //连接发生错误的回调方法
+                                websocket.onerror = function (e) {
+                                    console.error("WebSocket连接发生错误");
+                                };
+
+                                //连接成功建立的回调方法
+                                websocket.onopen = function () {
+                                    console.log("WebSocket连接成功")
+                                };
+
+                                //接收到消息的回调方法
+                                websocket.onmessage = function (event) {
+                                    //追加
+                                    if (event.data) {
+
+                                        //日志内容
+                                        let $loggingText = $("#loggingText");
+                                        $loggingText.append(event.data);
+
+                                        //滚动条自动到最底部
+                                        let message = document.getElementById('loggingText');
+                                        message.scrollTop = message.scrollHeight;
+                                    }
+                                }
+
+                                //连接关闭的回调方法
+                                websocket.onclose = function () {
+                                    console.log("WebSocket连接关闭")
+                                };
+                            </script>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     </form>
 
@@ -176,6 +233,7 @@
 </body>
 <script type="text/javascript" src="../js/jquery-3.5.1.min.js"></script>
 <script type="text/javascript" src="js/ajaxfileupload.js"></script>
+<script type="text/javascript" src="js/bootstrap-3.3.7-dist/js/bootstrap.min.js"></script>
 <script type="text/javascript">
     $("#load-file").click(function () {
         $.ajaxFileUpload({
